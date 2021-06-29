@@ -1,6 +1,6 @@
-title: Your awesome title
+title: Jaewoong's swift
 author: GitHub User
-email: your-email@domain.com
+email: jaewoong0624@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
@@ -26,8 +26,8 @@ plainwhite:
     - post
   # generate social links in footer
   social_links:
-    twitter: samarsault
-    github:  samarsault
+    twitter: 
+    github:  https://github.com/JaewoongLee-swift
     linkedIn: in/samarsault
     #dribbble: jekyll
     #flickr:   jekyll
