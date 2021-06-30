@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "[백준으로 배우는 Swift] print() (백준 2557번)",
+      "title-lower"    : "[백준으로 배우는 swift] print() (백준 2557번)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "swift문법print백준",
+      "tags"     : "",
+      "url"      : "/swift/%EB%AC%B8%EB%B2%95/print/%EB%B0%B1%EC%A4%80/2021/07/01/%EB%B0%B1%EC%A4%80%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Swift-print()-(%EB%B0%B1%EC%A4%80-2557%EB%B2%88).html",
+      "date"     : "2021-07-01 01:21:00 +0900",
+      "content"     : "당당하게 swift를 배워 문법과 알고리즘을 마스터하고 iOS 개발을 맘먹은 나. 문법공부를 위해 [백준 - 단계별 풀어보기]를 시작하지만… 플레이그라운드를 여는 것부터 문법내용까지 모르는게 산더미다.하지만 만리장성도 돌 하나부터 쌓았듯이 나의 코딩공부도 문법 하나부터 쌓아 올리려고 한다.나와 같이 혼자서 공부를 하면서 정보를 찾는데 어려움을 겪는 사..."
+    } ,
+  
+    {
       "title"    : "한글 가독성 테스트",
       "title-lower"    : "한글 가독성 테스트",
       "sub-titile" : "",
