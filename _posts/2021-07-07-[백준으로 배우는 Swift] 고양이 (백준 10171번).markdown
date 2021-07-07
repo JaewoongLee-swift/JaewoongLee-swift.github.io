@@ -1,0 +1,88 @@
+---
+layout: post
+title: "[백준으로 배우는 Swift] 고양이 (백준 10171번)"
+date: 2021-07-07-10:41:00 +0900
+categories: swift 스위프트 문법 백준 print
+---
+<br/>
+## 시작하며
+스위프트의 print문으로 여러 줄을 출력하는 것은 매우 쉬운 일이다. 쉬운 일인 만큼 print문으로 고양이를 그려보자....고양이를 그리라고?
+<br/>
+<br/>
+<br/>
+
+# 백준 10171번
+
+<img width="746" alt="백준 10171번" src="https://user-images.githubusercontent.com/83946704/124684088-60671480-df09-11eb-83ff-49795432b1db.png">
+<br/>
+<br/>
+<img width="476" alt="백준 10171번 출력" src="https://user-images.githubusercontent.com/83946704/124684152-7d034c80-df09-11eb-9165-28f1d9fc2652.png">
+
+아 ㅋㅋ 고양이를 이렇게 그리라고? 난또 ㅋㅋㅋ. 다들 잠시 당황했던건 잊고 빠르게 출력해서 문제를 넘어가도록 하자.
+
+<br/>
+{% highlight swift %}
+print("\    /\")
+#=> error : Invalid escape sequence in literal
+#=> error : Unterminated string literal
+print(" )  ( ')")
+print("(  /  )")
+print(" \(__)|")
+
+{% endhighlight %}
+
+에러때문에 빌드가 되지 않는다. 무슨 이유일까?<br/>
+이유는 스위프트에서 문자열에서 문자기호를 사용하기 위해 하는것을 **Escape sequence**라고 한다. Escape sequence를 하고자 할때 사용하는 것이 문자 앞에 역슬래시(\\)를 붙여주는 것이다.
+
+<br/>
+{% highlight swift %}
+// 만약 쌍따옴표를 출력하고 싶다면 어떻게 해야 할까?
+// Ex : "swift" 를 출력해보자.
+print(""swift"")
+#=> error 발생
+
+print("\"swift\"")
+#=> prints "swift"
+
+{% endhighlight %}
+
+다음과 같이 문자열을 출력하기 위한 특수문자 쌍따옴표(")를 사용하기 위해선 Escape sequence를 사용해서 표현해 주어야 한다. 이번 문제를 풀기 위한 역슬래시 또는 문자열 내에 변수를 출력할때도 사용 가능하다.
+
+<br/>
+{% highlight swift %}
+// Ex : 역슬래시 = \ 를 출력해보자.
+print("역슬래시 = \\")
+#=> prints 역슬래시 = \
+
+// 문자열에 변수를 넣어보자.
+let name = "재웅"
+
+print("내 이름 : \(name)")
+#=> prints 내 이름 : 재웅
+
+{% endhighlight %}
+
+이처럼 문자열 내에 특수문자와 변수를 넣을 수 있다.
+<br/>
+<br/>
+자, 그러면 특수문자를 문자열에 포함시키는 방법을 알았으니 문제를 바로 풀어보도록 하자.
+
+<br/>
+{% highlight swift %}
+
+print("\\    /\\")
+print(" )  ( ')")
+print("(  /  )")
+print(" \\(__)|")
+
+#=> prints \    /\
+#=>         )  ( ')
+#=>        (  /  )
+#=>         \(__)|
+
+{% endhighlight %}
+
+정답!! 이번 문제도 Escape sequence만 배우면 정말 쉽게 풀 수 있는 문제였다.
+
+## 마무리
+이번 문제는 고양이를 그리라 했다면 다음 문제는 개를 그리는 문제다. 의도적으로 긴 문자열을 출력하기 위해선 더 유용한 방법이 있다. 다음 포스팅에선 Escape sequence를 사용하지 않고 더 편리한 방법을 알아보도록 하자!
