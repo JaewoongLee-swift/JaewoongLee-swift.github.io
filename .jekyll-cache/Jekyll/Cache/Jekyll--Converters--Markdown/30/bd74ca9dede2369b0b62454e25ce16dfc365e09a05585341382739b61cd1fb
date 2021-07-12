@@ -1,4 +1,4 @@
-I"N<p><br /></p>
+I",<p><br /></p>
 <h2 id="시작하며">시작하며</h2>
 <p>스위프트의 print문으로 여러 줄을 출력하는 것은 매우 쉬운 일이다. 쉬운 일인 만큼 print문으로 고양이를 그려보자….고양이를 그리라고?
 <br />
@@ -24,7 +24,7 @@ print("</span><span class="p">(</span>  <span class="o">/</span>  <span class="p
 print("</span> <span class="p">\(</span><span class="n">__</span><span class="p">)</span><span class="o">|</span><span class="s">")</span></code></pre></figure>
 
 <p>에러때문에 빌드가 되지 않는다. 무슨 이유일까?<br />
-이유는 스위프트에서 문자열에서 문자기호를 사용하기 위해 하는것을 <strong>Escape sequence</strong>라고 한다. Escape sequence를 하고자 할때 사용하는 것이 문자 앞에 역슬래시(\)를 붙여주는 것이다.</p>
+이유는 스위프트에서 문자열에서 문자기호를 사용하기 위해 하는것을 <strong>Escape sequence</strong>라고 하는데 Escape sequence를 하고자 할때 사용하는 것이 특수문자 앞에 역슬래시(\)를 붙여주는 것이다. 따라서 역슬래시와 큰따옴표를 붙여 사용한 첫번째 print문에 마지막 큰따옴표가 인식되지 못해 문장이 정상적으로 마무리 되지 않았기 때문이다. 그렇다면 Escape sequence를 올바르게 사용하는 방법을 배워보도록 하자.</p>
 
 <p><br /></p>
 
@@ -63,8 +63,12 @@ print("</span> <span class="p">\(</span><span class="n">__</span><span class="p"
 <span class="nf">print</span><span class="p">(</span><span class="s">" </span><span class="se">\\</span><span class="s">(__)|"</span><span class="p">)</span>
 
 <span class="cp">#=&gt; prints \    /\</span>
-<span class="cp">#=&gt; prints  )  ( ')</span>
-<span class="cp">#=&gt; prints (  /  )</span>
-<span class="cp">#=&gt; prints  \(__)|</span></code></pre></figure>
+<span class="cp">#=&gt;         )  ( ')</span>
+<span class="cp">#=&gt;        (  /  )</span>
+<span class="cp">#=&gt;         \(__)|</span></code></pre></figure>
 
+<p>정답!! 이번 문제도 Escape sequence만 배우면 정말 쉽게 풀 수 있는 문제였다.</p>
+
+<h2 id="마무리">마무리</h2>
+<p>이번 문제는 고양이를 그리라 했다면 다음 문제는 개를 그리는 문제다. 의도적으로 긴 문자열을 출력하기 위해선 더 유용한 방법이 있다. 다음 포스팅에선 Escape sequence를 사용하지 않고 더 편리한 방법을 알아보도록 하자!</p>
 :ET

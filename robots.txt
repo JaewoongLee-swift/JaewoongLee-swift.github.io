@@ -1,3 +1,0 @@
-User-agent: *
- Allow: /
- Sitemap: https://jaewoonglee-swift.github.io/sitemap.xml
