@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>[백준으로 배우는 Swift] 개 (백준 10172번)</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>[백준으로 배우는 Swift] 개 (백준 10172번) | Jaewoong’s swift</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="[백준으로 배우는 Swift] 개 (백준 10172번)" />
+<meta name="author" content="GitHub User" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="시작하며 지난 문제를 통해 배운 Escape sequence를 이용해 고양이를 그린것 처럼, 이번 문제인 개를 그리는 것도 동일하다. 하지만 이번엔 Escape sequence를 이용하지 않고 다른 방법으로 특수문자를 출력하는 방법을 배워보자." />
+<meta property="og:description" content="시작하며 지난 문제를 통해 배운 Escape sequence를 이용해 고양이를 그린것 처럼, 이번 문제인 개를 그리는 것도 동일하다. 하지만 이번엔 Escape sequence를 이용하지 않고 다른 방법으로 특수문자를 출력하는 방법을 배워보자." />
+<link rel="canonical" href="https://jaewoonglee-swift.github.io/swift/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8/%EB%AC%B8%EB%B2%95/%EB%B0%B1%EC%A4%80/print/2021/07/12/%EB%B0%B1%EC%A4%80%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Swift-%EA%B0%9C-(%EB%B0%B1%EC%A4%80-10172%EB%B2%88).html" />
+<meta property="og:url" content="https://jaewoonglee-swift.github.io/swift/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8/%EB%AC%B8%EB%B2%95/%EB%B0%B1%EC%A4%80/print/2021/07/12/%EB%B0%B1%EC%A4%80%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Swift-%EA%B0%9C-(%EB%B0%B1%EC%A4%80-10172%EB%B2%88).html" />
+<meta property="og:site_name" content="Jaewoong’s swift" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-12T10:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[백준으로 배우는 Swift] 개 (백준 10172번)" />
+<script type="application/ld+json">
+{"url":"https://jaewoonglee-swift.github.io/swift/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8/%EB%AC%B8%EB%B2%95/%EB%B0%B1%EC%A4%80/print/2021/07/12/%EB%B0%B1%EC%A4%80%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Swift-%EA%B0%9C-(%EB%B0%B1%EC%A4%80-10172%EB%B2%88).html","author":{"@type":"Person","name":"GitHub User"},"headline":"[백준으로 배우는 Swift] 개 (백준 10172번)","dateModified":"2021-07-12T10:00:00+09:00","datePublished":"2021-07-12T10:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://jaewoonglee-swift.github.io/swift/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8/%EB%AC%B8%EB%B2%95/%EB%B0%B1%EC%A4%80/print/2021/07/12/%EB%B0%B1%EC%A4%80%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Swift-%EA%B0%9C-(%EB%B0%B1%EC%A4%80-10172%EB%B2%88).html"},"description":"시작하며 지난 문제를 통해 배운 Escape sequence를 이용해 고양이를 그린것 처럼, 이번 문제인 개를 그리는 것도 동일하다. 하지만 이번엔 Escape sequence를 이용하지 않고 다른 방법으로 특수문자를 출력하는 방법을 배워보자.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/portfolio.png" alt="Jaewoong Lee" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Jaewoong Lee</a>
+      </h2>
+      </div><p class="tagline">university student</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://github.com/JaewoongLee-swift" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/swift/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8/%EB%AC%B8%EB%B2%95/%EB%B0%B1%EC%A4%80/print/2021/07/12/%EB%B0%B1%EC%A4%80%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Swift-%EA%B0%9C-(%EB%B0%B1%EC%A4%80-10172%EB%B2%88).html">
+    <h2 class="post-title">[백준으로 배우는 Swift] 개 (백준 10172번)</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jul 12, 2021</div><ul class="post-categories"><li>swift</li><li>스위프트</li><li>문법</li><li>백준</li><li>print</li></ul></div>
+  <div class="post">
+    <p><br /></p>
+<h2 id="시작하며">시작하며</h2>
+<p>지난 문제를 통해 배운 Escape sequence를 이용해 고양이를 그린것 처럼, 이번 문제인 개를 그리는 것도 동일하다. 하지만 이번엔 Escape sequence를 이용하지 않고 다른 방법으로 특수문자를 출력하는 방법을 배워보자.
+<br />
+<br />
+<br /></p>
+
+<h1 id="백준-10172번">백준 10172번</h1>
+
+<p><img width="745" alt="백준 10172번" src="https://user-images.githubusercontent.com/83946704/125544847-b3506be0-8cbb-43a1-b0d3-642d9b44dc5e.png" />
+<br />
+<br />
+<img width="737" alt="백준 10172번 출력" src="https://user-images.githubusercontent.com/83946704/125544878-dd3dce77-6758-479f-97b7-25fbbb768f98.png" /></p>
+
+<p>Escape sequence를 이용해 출력하는 것도 방법이지만 특수문자 사이사이에 역슬래시(\)를 넣어주는게 매우 귀찮다. 출력하고 싶은 문자열을 그대로 쓸 수 있는 방법이 훨씬 편하다. 어떻게 하면 될까?</p>
+
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">dog</span> <span class="o">=</span> <span class="err">#</span><span class="s">"""
+|</span><span class="err">\</span><span class="s">_/|
+|q p|   /}
+( 0 )"""</span><span class="p">\</span>
+<span class="o">|</span><span class="s">"^"</span><span class="err">`</span><span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span><span class="n">_</span><span class="o">/=</span><span class="p">\\</span><span class="n">__</span><span class="o">|</span>
+<span class="s">"""#
+
+print(dog)
+
+#=&gt; prints  |</span><span class="err">\</span><span class="s">_/|
+#=&gt; prints  |q p|   /}
+#=&gt; prints  ( 0 )"""</span><span class="p">\</span>
+<span class="cp">#=&gt; prints  |"^"`|  |</span>
+<span class="cp">#=&gt; prints  |_/=\\__|</span></code></pre></figure>
+
+<p>오오 문자열 그대로 넣어서 출력하게 만들어줬다! 바로 샾(#)과 세개의 큰따옴표(“””) 덕분이다. swift5 부터는 다음과 같은 조합으로 특수문자 표현이 가능하게 되었다. 기존의 세개의 큰따옴표는 여러줄의 문자열을 String으로 변환하는데 사용되었는데 앞, 뒤에 샾(#)을 추가하여 특수문자도 표현 가능하다.
+<br />
+<br />
+<br />
+<br /></p>
+
+<h2 id="마무리">마무리</h2>
+<p>쉽다 쉬워! 백준의 문제들을 풀기 위해서 간단하게 출력을 표현하는 여러가지 방법들을 배웠다. 다음 포스팅에는 스위프트에서 입력값을 받는 방법에 대해 배워보도록 하겠다.</p>
+
+  </div></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://github.com/JaewoongLee-swift" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2021</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

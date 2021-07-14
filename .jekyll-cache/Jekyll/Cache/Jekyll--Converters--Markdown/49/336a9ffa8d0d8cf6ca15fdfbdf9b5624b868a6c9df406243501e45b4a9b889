@@ -1,0 +1,36 @@
+I"@	<p><br /></p>
+<h2 id="시작하며">시작하며</h2>
+<p>지난 문제를 통해 배운 Escape sequence를 이용해 고양이를 그린것 처럼, 이번 문제인 개를 그리는 것도 동일하다. 하지만 이번엔 Escape sequence를 이용하지 않고 다른 방법으로 특수문자를 출력하는 방법을 배워보자.
+<br />
+<br />
+<br /></p>
+
+<h1 id="백준-10172번">백준 10172번</h1>
+
+<p><img width="745" alt="백준 10172번" src="https://user-images.githubusercontent.com/83946704/125544847-b3506be0-8cbb-43a1-b0d3-642d9b44dc5e.png" />
+<br />
+<br />
+<img width="737" alt="백준 10172번 출력" src="https://user-images.githubusercontent.com/83946704/125544878-dd3dce77-6758-479f-97b7-25fbbb768f98.png" /></p>
+
+<p>Escape sequence를 이용해 출력하는 것도 방법이지만 특수문자 사이사이에 역슬래시()를 넣어주는게 매우 귀찮다. 출력하고 싶은 문자열을 그대로 쓸 수 있는 방법이 훨씬 편하다. 어떻게 하면 될까?</p>
+
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">dog</span> <span class="o">=</span> <span class="err">#</span><span class="s">"""
+|</span><span class="err">\</span><span class="s">_/|
+|q p|   /}
+( 0 )"""</span><span class="p">\</span>
+<span class="o">|</span><span class="s">"^"</span><span class="err">`</span><span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span><span class="n">_</span><span class="o">/=</span><span class="p">\\</span><span class="n">__</span><span class="o">|</span>
+<span class="s">"""#
+
+print(dog)
+
+#=&gt; prints  |</span><span class="err">\</span><span class="s">_/|
+#=&gt; prints  |q p|   /}
+#=&gt; prints  ( 0 )"""</span><span class="p">\</span>
+<span class="cp">#=&gt; prints  |"^"`|  |</span>
+<span class="cp">#=&gt; prints  |_/=\\__|</span></code></pre></figure>
+
+<p>오오 문자열 그대로 넣어서 출력하게 만들어줬다! 바로 샾(#)과 세개의 큰따옴표(“””) 덕분이다. swift5 부터는 다음과 같은 조합으로 특수문자 표현이 가능하게 되었다. 기존의 세개의 큰따옴표는 여러줄의 문자열을 String으로 변환하는데 사용되었는데 앞,뒤에 샾(#)을 추가하여 특수문자도 표현 가능하다.</p>
+:ET
