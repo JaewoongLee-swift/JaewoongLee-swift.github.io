@@ -1,0 +1,84 @@
+I"�<p><br /></p>
+<h2 id="시작하며">시작하며</h2>
+<p>[백준 단계별 문제풀기 - for문] 에서 껄끄러웠던 문제 중 두번째인 X보다 작은 수 문제를 풀어보도록 하겠다.
+<br />
+<br />
+<br /></p>
+
+<h1 id="백준-10871번">백준 10871번</h1>
+
+<p><img width="802" alt="백준 10871번" src="https://user-images.githubusercontent.com/83946704/131937971-0767010d-760c-4b32-b2a2-aafbfdc8e033.png" />
+<br />
+<br /></p>
+
+<p>이번 문제는 첫번째 줄에 N과 X를 입력받고, 두번째 줄의 N개의 숫자들 중에서 X보다 작은 수를 출력해야 한다.</p>
+
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">NX</span> <span class="o">=</span> <span class="nf">readLine</span><span class="p">()</span><span class="o">!.</span><span class="nf">split</span><span class="p">(</span><span class="nv">separator</span><span class="p">:</span> <span class="s">" "</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="kt">Int</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span><span class="o">!</span><span class="p">}</span>
+<span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="nf">readLine</span><span class="p">()</span><span class="o">!.</span><span class="nf">split</span><span class="p">(</span><span class="nv">separator</span><span class="p">:</span> <span class="s">" "</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="kt">Int</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span><span class="o">!</span><span class="p">}</span>
+<span class="k">var</span> <span class="nv">output</span> <span class="o">=</span> <span class="s">""</span>
+<span class="k">var</span> <span class="nv">check</span> <span class="o">=</span> <span class="kc">false</span>	<span class="c1">// 숫자들을 한칸씩 띄우기 위한 식별자</span>
+
+<span class="c1">// N개의 수 만큼 반복</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..&lt;</span><span class="kt">NX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">{</span>
+	  <span class="c1">// X보다 작은지 비교</span>
+    <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="kt">NX</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+		<span class="c1">// check가 true일 경우 output에 첫번째 수가 들어간것이므로 공백을 넣어줌</span>
+        <span class="k">if</span> <span class="n">check</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+            <span class="n">output</span> <span class="o">+=</span> <span class="s">" "</span>
+        <span class="p">}</span>
+		<span class="c1">// 처음으로 X보다 작은 수는 check가 false이므로 공백없이 output에 가장 첫 문자로 들어감</span>
+	<span class="k">else</span> <span class="p">{</span>
+            <span class="n">check</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="s">"</span><span class="se">\(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="se">)</span><span class="s">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+
+<span class="cp">#=&gt; if input 10 5 and 1 10 4 9 2 3 8 5 7 6,</span>
+<span class="cp">#=&gt; prints      1 4 2 3</span></code></pre></figure>
+
+<p>for문과 2개의 if문을 이용해 N개의 숫자들을 순차적으로 X와 비교하고 X보다 작은 수는 <code class="language-plaintext highlighter-rouge">output</code>변수에 공백으로 구분하여 입력해주었다.
+<br /><br />
+(1) 첫번째 for문</p>
+<ul>
+  <li>NX[0] = N 이므로 N개의 수를 비교하기 위해 N번 반복되도록 함<br /></li>
+  <li>반복되는 지역변수(i)는 0부터 시작
+<br /></li>
+</ul>
+
+<p>(2) 첫번째 if문</p>
+<ul>
+  <li>NX[1] = X 이므로 data[i]와 비교해 작은지 아닌지 판별함<br /></li>
+  <li>X보다 작을 경우 <code class="language-plaintext highlighter-rouge">output</code>변수에 입력</li>
+</ul>
+
+<p>(3) 두번째 if문</p>
+<ul>
+  <li>식별자를 통해 첫번째로 X보다 작은 수인지 아닌지 판별함<br /></li>
+  <li>첫번째로 X보다 작은 수일 경우 <code class="language-plaintext highlighter-rouge">check = false</code> 이므로 <code class="language-plaintext highlighter-rouge">output</code>변수에 공백 없이 가장 먼저 입력됨<br /></li>
+  <li>두번째로 X보다 작은 수 부터는 <code class="language-plaintext highlighter-rouge">check = true</code> 이므로 <code class="language-plaintext highlighter-rouge">output</code>변수에 공백이 먼저 들어간 후 숫자가 입력됨</li>
+</ul>
+
+<p>Ex) 첫번째로 X보다 작은 수일 경우<br />
+<code class="language-plaintext highlighter-rouge">output = "1"</code><br />
+    두번째로 X보다 작은 수일 경우<br />
+<code class="language-plaintext highlighter-rouge">output = "1 4"</code>
+<br />
+<br /></p>
+
+<p>따라서 다음과 같이 한 줄당, N개의 문자가 들어가는데 첫번째줄에서 N-1개의 공백과 1개의 별부터 N-2개의 공백, 2개의 별…. 과 같은 식으로 마지막엔 N개의 별이 채워지게 된다.<br /></p>
+
+<p>그리고 반복적인 print문이 아닌 <code class="language-plaintext highlighter-rouge">output</code>변수에 문자열을 할당한 후 한번에 출력한 이유는, swift에서의 print문은 다른 언어에 비해 속도가 느려 처리속도에 영향을 크게 준다. 따라서 print문의 사용을 최대한 줄이기 위해 변수를 만들어 한번에 출력하였다.</p>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+
+<h2 id="마무리">마무리</h2>
+<p>for문에서 순차적으로 반복되는 지역변수를 이용해서 문제를 풀어보았다. 한동안 백준문제 포스팅을 하지 않았는데, 앞으로는 위처럼 쉽게 풀리지 않는 문제들을 위주로 포스팅을 하도록 하겠다.</p>
+:ET

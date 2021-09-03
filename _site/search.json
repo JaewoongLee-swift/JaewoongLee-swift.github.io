@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "[백준으로 배우는 Swift] X보다 작은 수 (백준 10871번)",
+      "title-lower"    : "[백준으로 배우는 swift] x보다 작은 수 (백준 10871번)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "swift스위프트문법백준for문",
+      "tags"     : "",
+      "url"      : "/swift/%EC%8A%A4%EC%9C%84%ED%94%84%ED%8A%B8/%EB%AC%B8%EB%B2%95/%EB%B0%B1%EC%A4%80/for%EB%AC%B8/2021/09/03/%EB%B0%B1%EC%A4%80%EC%9C%BC%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Swift-X%EB%B3%B4%EB%8B%A4-%EC%9E%91%EC%9D%80-%EC%88%98-(%EB%B0%B1%EC%A4%80-10871%EB%B2%88).html",
+      "date"     : "2021-09-03 10:55:00 +0900",
+      "content"     : "시작하며[백준 단계별 문제풀기 - for문] 에서 껄끄러웠던 문제 중 두번째인 X보다 작은 수 문제를 풀어보도록 하겠다.백준 10871번이번 문제는 첫번째 줄에 N과 X를 입력받고, 두번째 줄의 N개의 숫자들 중에서 X보다 작은 수를 출력해야 한다.let NX = readLine()!.split(separator: &quot; &quot;).map{I..."
+    } ,
+  
+    {
       "title"    : "[백준으로 배우는 Swift] 별 찍기 - 2 (백준 2439번)",
       "title-lower"    : "[백준으로 배우는 swift] 별 찍기 - 2 (백준 2439번)",
       "sub-titile" : "",
