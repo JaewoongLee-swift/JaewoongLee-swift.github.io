@@ -1,0 +1,95 @@
+I"�*<p><br /></p>
+<h2 id="시작하며">시작하며</h2>
+<p>[백준 단계별 문제풀기 - while문] 단계의 문제들 중, 더하기 사이클 문제가 가장 껄끄러운 문제였다. 어떤점이 어려웠고, 문제를 풀면서 놓치지 말아야 할지 알아보자.
+<br />
+<br />
+<br /></p>
+
+<h1 id="백준-1110번">백준 1110번</h1>
+
+<p><img width="964" alt="백준 1110번 - 1" src="https://user-images.githubusercontent.com/83946704/132618472-b3ee02ba-fbb5-402d-a681-0b4016921424.png" />
+<br />
+<br />
+<img width="664" alt="백준 1110번 - 2" src="https://user-images.githubusercontent.com/83946704/132618536-d74e2c3c-2761-49ab-8f34-e2251aa2b4b1.png" />
+<br />
+<br /></p>
+
+<p>이번 문제의 중요 포인트는, 연산과 반복이다. <code class="language-plaintext highlighter-rouge">input</code>값인 <code class="language-plaintext highlighter-rouge">XY</code>라는 두자리 또는 한자리 숫자(<code class="language-plaintext highlighter-rouge">X=0</code>)에서 <code class="language-plaintext highlighter-rouge">X</code>와 <code class="language-plaintext highlighter-rouge">Y</code>를 더해 새로운 <code class="language-plaintext highlighter-rouge">Z</code>를 만들고, 기존의 <code class="language-plaintext highlighter-rouge">Y</code>와 결합해 <code class="language-plaintext highlighter-rouge">YZ</code>라는 새로운 숫자를 만든다. 다음을 한 사이클이라 하고, 처음 <code class="language-plaintext highlighter-rouge">input</code>값(<code class="language-plaintext highlighter-rouge">XY</code>)과 <code class="language-plaintext highlighter-rouge">N</code>번의 사이클 후에 생성된 새로운 값(<code class="language-plaintext highlighter-rouge">newNumber</code>)이 같을 경우, 반복을 중지하고 <code class="language-plaintext highlighter-rouge">N</code>을 출력하면 된다.</p>
+
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">input</span> <span class="o">=</span> <span class="kt">Int</span><span class="p">(</span><span class="nf">readLine</span><span class="p">()</span><span class="o">!</span><span class="p">)</span><span class="o">!</span>
+<span class="k">var</span> <span class="nv">newNumber</span> <span class="o">=</span> <span class="mi">0</span>         <span class="c1">// 새로운 값을 저장하기 위한 Int형 변수</span>
+<span class="k">let</span> <span class="nv">comparison</span> <span class="o">=</span> <span class="n">input</span>    <span class="c1">// 첫 입력값을 저장하기 위한 변수</span>
+<span class="k">var</span> <span class="nv">N</span> <span class="o">=</span> <span class="mi">0</span>                 <span class="c1">// 사이클 횟수</span>
+
+<span class="k">while</span> <span class="n">comparison</span> <span class="o">!=</span> <span class="n">newNumber</span> <span class="p">{</span>
+    <span class="n">newNumber</span> <span class="o">=</span> <span class="p">((</span><span class="n">input</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">input</span><span class="o">%</span><span class="mi">10</span><span class="p">))</span><span class="o">%</span><span class="mi">10</span><span class="o">+</span><span class="p">(</span><span class="n">input</span><span class="o">%</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="n">newNumber</span>
+    <span class="kt">N</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="p">}</span>
+<span class="c1">// input이 0일 경우, N = 0으로 출력되는걸 방지</span>
+<span class="k">if</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="kt">N</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="cp">#=&gt;	if input 26, prints 4</span>
+<span class="cp">#=&gt;	if input 0, prints 1</span></code></pre></figure>
+
+<p>while문의 조건을 <code class="language-plaintext highlighter-rouge">comparison</code>값과 <code class="language-plaintext highlighter-rouge">newNumber</code>값이 일치하지 않는 조건에서 사이클이 진행된다. <code class="language-plaintext highlighter-rouge">comparison</code>값과 <code class="language-plaintext highlighter-rouge">newNumber</code>값이 같을 경우, while문이 종료되고 사이클 <code class="language-plaintext highlighter-rouge">N</code>이 출력된다.<br />단, <code class="language-plaintext highlighter-rouge">input</code>값이 <code class="language-plaintext highlighter-rouge">0</code>일 경우, <code class="language-plaintext highlighter-rouge">newNumber</code>의 초기값과 같이 때문에 while문이 실행되지 않고 바로 종료된다. 따라서 if문을 통해서 <code class="language-plaintext highlighter-rouge">input</code>값이 <code class="language-plaintext highlighter-rouge">0</code>인 경우를 방지해주었다.
+<br /></p>
+
+<p>(1) while문</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">comparison</code>값과 <code class="language-plaintext highlighter-rouge">newNumber</code>값이 동일하지 않으면 while문 실행<br /></li>
+  <li>더하기 사이클 연산에 의해 새로운 <code class="language-plaintext highlighter-rouge">newNumber</code>값 할당<br /></li>
+  <li>다음 사이클 계산을 위해, 변수 <code class="language-plaintext highlighter-rouge">input</code>값에 <code class="language-plaintext highlighter-rouge">newNumber</code>값 저장<br /></li>
+  <li>사이클 종료, <code class="language-plaintext highlighter-rouge">N</code>값에 1 더해짐.
+<br /></li>
+</ul>
+
+<p>(2) if문</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">input</code>값이 <code class="language-plaintext highlighter-rouge">0</code>일 경우, <code class="language-plaintext highlighter-rouge">1</code>이 출력되도록 함<br /></li>
+  <li><code class="language-plaintext highlighter-rouge">input</code>값이 <code class="language-plaintext highlighter-rouge">0</code>이 아닐 경우, 사이클 횟수 <code class="language-plaintext highlighter-rouge">N</code>값 출력
+<br />
+<br /></li>
+</ul>
+
+<p>다음과 같은 방법으로 코드를 작성했지만 불필요하게 if문을 작성하게 되었다.
+<br /><br />
+if문을 사용하지 않기 위해서는 while문에 조건과 같이 <code class="language-plaintext highlighter-rouge">comparison(=0)</code>값과 처음 <code class="language-plaintext highlighter-rouge">newNumber</code>값이 같이 않아야 하는데, <code class="language-plaintext highlighter-rouge">newNumber</code>값이 0으로 설정되어 있으므로 변수선언 과정에서 <code class="language-plaintext highlighter-rouge">newNumber</code>값을 음수로 설정해주면 해결된다. 입력값의 범위는 0~99까지 이므로 <code class="language-plaintext highlighter-rouge">newNumber</code>값이 이 범위의 값을 가지면 while문의 조건을 무조건 만족하게 된다
+<br /><br />
+하지만, 개인적으로 변수 <code class="language-plaintext highlighter-rouge">newNumber</code>의 초기값을 변경해줘서 while문의 조건을 우회하는 방법보다 <code class="language-plaintext highlighter-rouge">0</code>으로 초기값을 설정하고 무조건 whil문의 연산을 한번 실행하게 만들어주고 싶었다.<br />
+따라서 조건에 상관없이 일단 코드를 한번 실행하고, 이후에 기존 while문처럼 수행할 수 있는 repeat-while문을 사용하여 코드를 다시 작성해 보았다.</p>
+
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">input</span> <span class="o">=</span> <span class="kt">Int</span><span class="p">(</span><span class="nf">readLine</span><span class="p">()</span><span class="o">!</span><span class="p">)</span><span class="o">!</span>
+<span class="k">var</span> <span class="nv">newNumber</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">let</span> <span class="nv">comparison</span> <span class="o">=</span> <span class="n">input</span>
+<span class="k">var</span> <span class="nv">N</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">repeat</span> <span class="p">{</span>
+    <span class="n">newNumber</span> <span class="o">=</span> <span class="p">((</span><span class="n">input</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">input</span><span class="o">%</span><span class="mi">10</span><span class="p">))</span><span class="o">%</span><span class="mi">10</span><span class="o">+</span><span class="p">(</span><span class="n">input</span><span class="o">%</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="n">newNumber</span>
+    <span class="kt">N</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="p">}</span> <span class="k">while</span> <span class="n">comparison</span> <span class="o">!=</span> <span class="n">newNumber</span>
+<span class="nf">print</span><span class="p">(</span><span class="kt">N</span><span class="p">)</span>
+
+<span class="cp">#=&gt;	if input 26, prints 4</span>
+<span class="cp">#=&gt;	if input 0, prints 1</span></code></pre></figure>
+
+<p>repeat-while문을 사용해 <code class="language-plaintext highlighter-rouge">newNumber</code> 초기값에 상관 없이, 더하기 연산을 통해 새로운 <code class="language-plaintext highlighter-rouge">newNumber</code>값을 저장하고, 이후에 <code class="language-plaintext highlighter-rouge">comparison</code>값과 동일한지 확인 후, 반복문을 진행하거나 종료한다.</p>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+
+<h2 id="마무리">마무리</h2>
+<p>이문제까지 [백준 단계별 문제풀기 - for문]의 문제들을 모두 풀어보았다. 아직까지 쉬운 문제들이고 이미 풀어보았던 문제들이였기 때문에 다시 풀어보는데 지장은 없었지만, 이미 풀어본 문제를 다시 풀어보니 새로운 방법을 찾게되고 더 간단하거나 효율적인 방법을 찾을 수 있던것 같다. 다음 while문 문제들부터는 난이도가 올라가니 더 나은방법들을 찾아 문제를 풀어보도록 해야겠다.</p>
+:ET

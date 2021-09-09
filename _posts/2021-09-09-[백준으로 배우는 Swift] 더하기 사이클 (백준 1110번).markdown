@@ -1,0 +1,102 @@
+---
+layout: post
+title: "[백준으로 배우는 Swift] 더하기 사이클 (백준 1110번)"
+date: 2021-09-09-15:12:00 +0900
+categories: swift 스위프트 문법 백준 while문 repeat-while문
+---
+<br/>
+## 시작하며
+[백준 단계별 문제풀기 - while문] 단계의 문제들 중, 더하기 사이클 문제가 가장 껄끄러운 문제였다. 어떤점이 어려웠고 문제를 풀면서 놓치지 말아야 할지 알아보고 repeat-while문과 while문의 차이점 또한 알아보자.
+<br/>
+<br/>
+<br/>
+
+# 백준 1110번
+
+<img width="964" alt="백준 1110번 - 1" src="https://user-images.githubusercontent.com/83946704/132618472-b3ee02ba-fbb5-402d-a681-0b4016921424.png">
+<br/>
+<br/>
+<img width="664" alt="백준 1110번 - 2" src="https://user-images.githubusercontent.com/83946704/132618536-d74e2c3c-2761-49ab-8f34-e2251aa2b4b1.png">
+<br/>
+<br/>
+
+이번 문제의 중요 포인트는, 연산과 반복이다. `input`값인 `XY`라는 두자리 또는 한자리 숫자(`X=0`)에서 `X`와 `Y`를 더해 새로운 `Z`를 만들고, 기존의 `Y`와 결합해 `YZ`라는 새로운 숫자를 만든다. 다음을 한 사이클이라 하고, 처음 `input`값(`XY`)과 `N`번의 사이클 후에 생성된 새로운 값(`newNumber`)이 같을 경우, 반복을 중지하고 `N`을 출력하면 된다.
+
+
+<br/>
+{% highlight swift %}
+var input = Int(readLine()!)!
+var newNumber = 0         // 새로운 값을 저장하기 위한 Int형 변수
+let comparison = input    // 첫 입력값을 저장하기 위한 변수
+var N = 0                 // 사이클 횟수
+
+while comparison != newNumber {
+    newNumber = ((input/10)+(input%10))%10+(input%10)*10
+    input = newNumber
+    N += 1
+}
+// input이 0일 경우, N = 0으로 출력되는걸 방지
+if input == 0 {
+    print(1)
+}
+else {
+    print(N)
+}
+
+#=>	if input 26, prints 4
+#=>	if input 0, prints 1
+
+{% endhighlight %}
+while문의 조건을 `comparison`값과 `newNumber`값이 일치하지 않는 조건에서 사이클이 진행된다. `comparison`값과 `newNumber`값이 같을 경우, while문이 종료되고 사이클 `N`이 출력된다.<br/>단, `input`값이 `0`일 경우, `newNumber`의 초기값과 같이 때문에 while문이 실행되지 않고 바로 종료된다. 따라서 if문을 통해서 `input`값이 `0`인 경우를 방지해주었다.
+<br/>
+
+(1) while문
+- `comparison`값과 `newNumber`값이 동일하지 않으면 while문 실행<br/>
+- 더하기 사이클 연산에 의해 새로운 `newNumber`값 할당<br/>
+- 다음 사이클 계산을 위해, 변수 `input`값에 `newNumber`값 저장<br/>
+- 사이클 종료, `N`값에 1 더해짐.
+<br/>
+
+(2) if문
+- `input`값이 `0`일 경우, `1`이 출력되도록 함<br/>
+- `input`값이 `0`이 아닐 경우, 사이클 횟수 `N`값 출력
+<br/>
+<br/>
+
+다음과 같은 방법으로 코드를 작성했지만 불필요하게 if문을 작성하게 되었다.
+<br/><br/>
+if문을 사용하지 않기 위해서는 while문에 조건과 같이 `comparison(=0)`값과 처음 `newNumber`값이 같이 않아야 하는데, `newNumber`값이 0으로 설정되어 있으므로 변수선언 과정에서 `newNumber`값을 음수로 설정해주면 해결된다. 입력값의 범위는 0~99까지 이므로 `newNumber`값이 이 범위의 값을 가지면 while문의 조건을 무조건 만족하게 된다
+<br/><br/>
+하지만, 개인적으로 변수 `newNumber`의 초기값을 변경해줘서 while문의 조건을 우회하는 방법보다 `0`으로 초기값을 설정하고 무조건 whil문의 연산을 한번 실행하게 만들어주고 싶었다.<br/>
+따라서 조건에 상관없이 일단 코드를 한번 실행하고, 이후에 기존 while문처럼 수행할 수 있는 repeat-while문을 사용하여 코드를 다시 작성해 보았다.
+
+<br/>
+{% highlight swift %}
+var input = Int(readLine()!)!
+var newNumber = 0
+let comparison = input
+var N = 0
+
+repeat {
+    newNumber = ((input/10)+(input%10))%10+(input%10)*10
+    input = newNumber
+    N += 1
+} while comparison != newNumber
+print(N)
+
+#=>	if input 26, prints 4
+#=>	if input 0, prints 1
+
+{% endhighlight %}
+repeat-while문을 사용해 `newNumber` 초기값에 상관 없이, 더하기 연산을 통해 새로운 `newNumber`값을 저장하고, 이후에 `comparison`값과 동일한지 확인 후, 반복문을 진행하거나 종료한다.<br/>
+다음과 같이 repeat-while문은 조건에 상관 없이 `repeat {}`내에 코드를 먼저 실행하고, 이후에 조건을 확인하게 사용하여 반복문의 순서를 원하는대로 수정하여 사용할 수 있다.
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## 마무리
+이번 문제는 연산 구현은 쉬웠지만 사이클의 수를 원하는 정도로 표한히는것이 어려웠다. 사이클마다 연산에 필요한 `input`값을 일정하게 해놔서 whilea문이 무한반복을 하거나, 위에서 말했듯이 초기 `input`값이 `0`일때를 고려하지 못해 오답이 나온 경우가 많았다. <br/>
+이번 문제를 통해 입력범위에 대한 계산과 while문과 유사한 repeat-while문을 배웠으므로 이후에 문제를 푸는데 유용할 것이라 생각된다.
