@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "[백준으로 배우는 Swift] X보다 작은 수 (백준 10871번)"
-date: 2021-09-03-10:55:00 +0900
-categories: swift 스위프트 문법 백준 for문
+excerpt:
+categories:
+    - 백준
+tags:
+    - 백준
+    - swift
+    - for문
+toc: true
+last_modified_at: 2021-09-03-10:55:00 +0900
 ---
 <br/>
 ## 시작하며

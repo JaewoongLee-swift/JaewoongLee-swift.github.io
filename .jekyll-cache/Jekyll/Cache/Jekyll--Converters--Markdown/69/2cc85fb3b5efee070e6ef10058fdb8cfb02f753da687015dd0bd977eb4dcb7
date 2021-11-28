@@ -1,0 +1,44 @@
+I"B	<h2 id="시작하며">시작하며</h2>
+<p>당당하게 swift를 배워 문법과 알고리즘을 마스터하고 iOS 개발을 맘먹은 나.<br />
+문법공부를 위해 [백준 - 단계별 풀어보기]를 시작하지만… 플레이그라운드를 여는 것부터 문법내용까지 모르는게 산더미다.<br />
+하지만 만리장성도 돌 하나부터 쌓았듯이 나의 코딩공부도 문법 하나부터 쌓아 올리려고 한다.<br />
+나와 같이 혼자서 공부를 하면서 정보를 찾는데 어려움을 겪는 사람들을 위해 도움이 될만한 글들을 작성해 나가려고 한다.</p>
+
+<p><strong>앞으로 내가 스스로 백준 단계별 문제풀이를 하면서 배운 Swift문법과 문제풀이를 공유하는 포스팅이 되겠다.</strong>
+<br />
+<br />
+<br /></p>
+
+<h2 id="백준-2557번">백준 2557번</h2>
+
+<p><img width="726" alt="백준 2557번" src="https://user-images.githubusercontent.com/83946704/123996997-e0bddf00-da0a-11eb-8294-f55127d2aba5.png" />
+<br />
+<br /></p>
+
+<p>단계별 문제의 1번답게 굉장히 쉽다. “Hello World!”만 출력하면 된다.
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">print</span><span class="p">(</span><span class="s">"Hello World!"</span><span class="p">)</span>
+
+<span class="cp">#=&gt; prints "Hello World!"</span></code></pre></figure>
+
+<p>print() 메소드 내부에 큰따옴표를 사용해 원하는 내용의 String(문자열)을 넣어주면 그대로 콘솔창에 출력된다.
+<br />
+<br />
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">Str</span> <span class="o">=</span> <span class="s">"안녕하세요"</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="kt">Str</span><span class="p">)</span>
+
+<span class="cp">#=&gt; prints "안녕하세요"</span></code></pre></figure>
+
+<p>print() 메소드 내에 큰따옴표를 이용하지 않고 변수나 상수를 선언해 출력할 수도 있다.
+<br />
+<br />
+<br />
+<br /></p>
+<h2 id="마무리">마무리</h2>
+<p>자, 처음으로 문법 문제풀이를 위한 기본인 print() 메소드를 알아보았다.<br />
+다음은 필요한 문자열을 출력시키기 위한 방법을 알아보도록 하자.</p>
+:ET

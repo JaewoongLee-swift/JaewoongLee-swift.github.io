@@ -1,0 +1,18 @@
+# main links
+main:
+  - title: "Home"
+    url: https://jaewoonglee-swift.github.io/
+  - title: "Categories"
+    url: https://jaewoonglee-swift.github.io/categories
+  - title: "BackJoon"
+    url: https://jaewoonglee-swift.github.io/categories/Backjoon
+  - title: "About"
+    url: https://jaewoonglee-swift.github.io/about
+  # - title: "About"
+  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  # - title: "Sample Posts"
+  #   url: /year-archive/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/

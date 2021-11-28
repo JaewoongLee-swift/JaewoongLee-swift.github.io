@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "[백준으로 배우는 Swift] 더하기 사이클 (백준 1110번)"
-date: 2021-09-09-15:12:00 +0900
-categories: swift 스위프트 문법 백준 while문 repeat-while문
+excerpt:
+categories:
+    - 백준
+tags:
+    - 백준
+    - swift
+    - while문
+toc: true
+last_modified_at: 2021-09-09-15:12:00 +0900
 ---
 <br/>
 ## 시작하며

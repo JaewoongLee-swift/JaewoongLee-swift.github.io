@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "[백준으로 배우는 Swift] 개 (백준 10172번)"
-date: 2021-07-12-10:00:00 +0900
-categories: swift 스위프트 문법 백준 print
+excerpt:
+categories:
+    - 백준
+tags:
+    - 백준
+    - swift
+toc: true
+last_modified_at: 2021-07-12-10:00:00 +0900
 ---
 <br/>
 ## 시작하며
