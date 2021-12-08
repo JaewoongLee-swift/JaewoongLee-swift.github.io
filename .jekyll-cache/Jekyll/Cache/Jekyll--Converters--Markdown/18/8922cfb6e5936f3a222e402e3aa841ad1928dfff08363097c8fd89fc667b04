@@ -1,0 +1,10 @@
+I"�<h2 id="1-재귀함수란">1. 재귀함수란?</h2>
+
+<p>재귀함수란, 내 자신을 반복해서 호출하는 함수.
+예를 들면,</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">recursiveFunction</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nf">recursiveFunction</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
+
+:ET
