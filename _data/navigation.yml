@@ -6,6 +6,8 @@ main:
     url: https://jaewoonglee-swift.github.io/categories
   - title: "BackJoon"
     url: https://jaewoonglee-swift.github.io/categories/Backjoon
+  - title: "TIL"
+    url: https://jaewoonglee-swift.github.io/til
   - title: "About"
     url: https://jaewoonglee-swift.github.io/about
   # - title: "About"
