@@ -41,6 +41,10 @@
 <lastmod>2021-12-08T23:53:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/ios/iOS-SF-Symbol%EC%9D%98-%EC%82%AC%EC%9D%B4%EC%A6%88%EA%B0%80-%EB%8B%A4%EB%A5%BC%EB%95%8C/</loc>
+<lastmod>2021-12-10T02:30:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/categories/Backjoon/</loc>
 </url>
 <url>
@@ -61,5 +65,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page2/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page3/</loc>
 </url>
 </urlset>

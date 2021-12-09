@@ -1,0 +1,36 @@
+I"�
+<h2 id="1-sf-symbol이란">1. SF Symbol이란?</h2>
+<p>SF Symbol은 애플에서 개발한 샌프란시스코 폰트(San Francisco font)와 자연스럽게 이용할 수 있게 만든 이미지이다.<br />
+<br />
+자세한 내용은 아래를 참고<br />
+<br />
+<a href="https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/">https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/</a>
+(Apple Human Interface Guidelines - SF Symbol)
+<br /><br /></p>
+<h2 id="2-sf-symbol을-사용하는-경우">2. SF Symbol을 사용하는 경우</h2>
+<p>애플에서 직접 사용하도록 만든 만큼 앱의 이미지로 사용하기에 매우 편리하다.<br />
+<br />
+아래와 같은 코드를 통해 버튼에 이미지를 입힐 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">private</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">likeButton</span><span class="p">:</span> <span class="kt">UIButton</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">button</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+        <span class="n">button</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span><span class="kt">UIImage</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"heart"</span><span class="p">),</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">normal</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">button</span>
+    <span class="p">}()</span></code></pre></figure>
+
+<p>UIImage에 heart라는 SF Symbol 이름을 통해 간단하게 이미지를 입힐 수 있다.
+<br /><br /></p>
+<h2 id="3-sf-symbol의-크기가-다를-때">3. SF Symbol의 크기가 다를 때</h2>
+<p>하지만 다음과 같이 SF Symbol을 사용하지만 아주 미세하게 크기가 다른 경우가 있다.</p>
+
+<center><img src="https://user-images.githubusercontent.com/83946704/145448857-a9b1caaf-0a15-4509-87cd-caf4bddf0db3.png" width="45%" height="45%" /></center>
+<p><br />
+다음과 같이 heart, message, paperplane 이미지를 사용했는데 아주 미세하게 어색하다. (불편…)<br />
+<br />
+하지만 SF Symbol은 이미 만들어진 이미지이기 때문에 내가 일일히 크기를 조절하기엔 매우 불편하다.<br />
+<br />
+따라서 이런 경우엔 Helper method를 만들어서 좀 더 편리하게 크기조절을 할 수 있다.</p>
+
+<h2 id="4-helper-method-이용">4. Helper method 이용</h2>
+:ET
