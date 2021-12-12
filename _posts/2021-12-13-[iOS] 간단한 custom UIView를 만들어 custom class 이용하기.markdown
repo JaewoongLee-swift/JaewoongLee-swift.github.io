@@ -15,7 +15,7 @@ last_modified_at: 2021-12-13-04:30:00 +0900
 ## 1. custom UIView를 사용할 때
 인스타그램 유사 앱의 프로필 화면을 구현하는 중, 다음과 같은 화면을 구성하려 했다.<br/>
 <br/>
-<center><img width="284" alt="스크린샷 2021-12-13 오전 3 46 41" src="https://user-images.githubusercontent.com/83946704/145725371-42f6b5d8-5c3a-4125-a758-76ef17b2bb0b.png">></center>
+<center><img width="284" alt="스크린샷 2021-12-13 오전 3 46 41" src="https://user-images.githubusercontent.com/83946704/145725371-42f6b5d8-5c3a-4125-a758-76ef17b2bb0b.png"></center>
 <br/>
 프로필 화면에서 게시물, 팔로우, 팔로잉이 나타나는 부분은 각각의 게시물, 팔로우, 팔로잉의 텍스트 라벨로 나타내고 각 숫자 또한 텍스트 라벨로 나타내면 된다.<br/>
 <br/>

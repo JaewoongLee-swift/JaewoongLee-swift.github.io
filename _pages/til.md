@@ -3,7 +3,7 @@ title: "TIL 기록장"
 permalink: /til/
 layout: single
 author_profile: true
-last_modified_at: 2021-12-11-04:23:00 +0900
+last_modified_at: 2021-12-13-04:39:00 +0900
 ---
 
 ## iOS/Swift TIL(Today I Learned) 기록
@@ -19,3 +19,7 @@ last_modified_at: 2021-12-11-04:23:00 +0900
 ### 21년 12월 10일
 - 백준 2231번 풀이(+ 브루트포스란?)
 <https://jaewoonglee-swift.github.io/백준/알고리즘/백준으로-배우는-Swift-분해합-(백준-2231번)/>
+
+### 21년 12월 12일
+- custom UIView, custom class 이용하기
+<https://jaewoonglee-swift.github.io/ios/iOS-간단한-custom-UIView를-만들어-custom-class-이용하기/>
