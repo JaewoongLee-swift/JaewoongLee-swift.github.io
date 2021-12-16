@@ -3,7 +3,7 @@ title: "TIL 기록장"
 permalink: /til/
 layout: single
 author_profile: true
-last_modified_at: 2021-12-13-04:39:00 +0900
+last_modified_at: 2021-12-16-17:00:00 +0900
 ---
 
 ## iOS/Swift TIL(Today I Learned) 기록
@@ -23,3 +23,7 @@ last_modified_at: 2021-12-13-04:39:00 +0900
 ### 21년 12월 12일
 - custom UIView, custom class 이용하기
 <https://jaewoonglee-swift.github.io/ios/iOS-간단한-custom-UIView를-만들어-custom-class-이용하기/>
+
+### 21년 12월 15일
+- actionSheet 사용하기
+<https://jaewoonglee-swift.github.io/ios/iOS-actionSheet-사용하기/>
