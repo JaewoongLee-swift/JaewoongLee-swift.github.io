@@ -1,0 +1,80 @@
+I"4<h2 id="1-더보기또는-기타설정-버튼을-만들-때">1. 더보기(또는 기타설정) 버튼을 만들 때</h2>
+<p>인스타그램 유사 앱의 프로필 화면을 구현하면서 네이게이션 바 우측버튼으로 더보기 버튼을 만들었다.<br />
+<br /></p>
+<center><img width="379" alt="더보기버튼업로드" src="https://user-images.githubusercontent.com/83946704/146152896-c83c05c9-30fb-43e4-9aac-13c3d60d25af.png" /></center>
+<p><br />
+이 버튼을 클릭하면 하단에 프로필 관련 설정을 할 수 있는 actionSheet를 만들기 위해 구현해보자.</p>
+
+<h2 id="2-버튼액션함수-생성">2. 버튼액션함수 생성</h2>
+<p>나는 이전에 네비게이션 바에 버튼을 다음과 같이 생성했다.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="o">...</span>
+
+<span class="k">let</span> <span class="nv">rightBarButton</span> <span class="o">=</span> <span class="kt">UIBarButtonItem</span><span class="p">(</span>
+    <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"ellipsis"</span><span class="p">),</span>
+    <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="n">plain</span><span class="p">,</span>
+    <span class="nv">target</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span>
+    <span class="nv">action</span><span class="p">:</span> <span class="kc">nil</span>
+<span class="p">)</span>
+
+<span class="n">navigationItem</span><span class="o">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">rightBarButton</span>
+
+<span class="o">...</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">UIBarButtonItem</code>으로 선언할 때 action함수를 지정해야 한다.<br />
+<br />
+action함수는 <code class="language-plaintext highlighter-rouge">#selector</code>를 통해 받으므로 objective-C를 통해 함수를 선언하도록 하자.<br />
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@objc</span> <span class="kd">func</span> <span class="nf">didTapRightBarButtonItem</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// title: 나타낼 alert의 제목, message: title과 함께 나타낼 메세지, preferredStyle: alert 스타일</span>
+      <span class="k">let</span> <span class="nv">actionSheet</span> <span class="o">=</span> <span class="kt">UIAlertController</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">preferredStyle</span><span class="p">:</span> <span class="o">.</span><span class="n">actionSheet</span><span class="p">)</span>
+
+      <span class="c1">// alert발생시 나타날 액션선언 및 추가</span>
+      <span class="p">[</span>
+      <span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"회원 정보 변경"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">),</span>
+      <span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"탈퇴하기"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="n">destructive</span><span class="p">),</span>
+      <span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"닫기"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="n">cancel</span><span class="p">)</span>
+      <span class="p">]</span><span class="o">.</span><span class="n">forEach</span><span class="p">{</span> <span class="n">actionSheet</span><span class="o">.</span><span class="nf">addAction</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span> <span class="p">}</span>
+
+      <span class="c1">// alert 나타내기  </span>
+      <span class="nf">present</span><span class="p">(</span><span class="n">actionSheet</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><br /></p>
+
+<p>actoinSheet를 나타낼 함수를 만들었으니 버튼을 눌렀을때 작동하도록 코드를 수정해주자</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="o">...</span>
+
+<span class="k">let</span> <span class="nv">rightBarButton</span> <span class="o">=</span> <span class="kt">UIBarButtonItem</span><span class="p">(</span>
+    <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"ellipsis"</span><span class="p">),</span>
+    <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="n">plain</span><span class="p">,</span>
+    <span class="nv">target</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span>
+    <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">didTapRightBarButtonItem</span><span class="kd">)</span>
+<span class="p">)</span>
+
+<span class="n">navigationItem</span><span class="o">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">rightBarButton</span>
+
+<span class="o">...</span></code></pre></figure>
+
+<p><br /></p>
+
+<p>함수 추가 완료! 그럼 이제 버튼을 누르면 actionSheet가 잘 나타나는지 확인해보자.<br />
+<br /></p>
+
+<center><img width="379" src="https://user-images.githubusercontent.com/83946704/146324946-52f8de3e-1a86-421c-a310-733941c4e9bf.gif" /></center>
+<p><br /></p>
+
+<p>완성! 원하는 대로 actionSheet가 잘 작동한다!</p>
+
+<h2 id="3-uialertcontroller-알아보기">3. UIAlertController 알아보기</h2>
+
+<p>actionSheet를 활용하는 방법은 알았다.<br />
+<br />
+그런데 <code class="language-plaintext highlighter-rouge">UIAlertController</code>를 선언할 때 설정할 수 있는 여러 변수들이 있었으니 좀 더 알아보도록 하자.<br />
+<br /></p>
+
+<p><br /><br /><br /><br />
+출처 : 30개 프로젝트로 배우는 iOS 앱 개발 with Swift 초격차 패키지 Online - part 4. 인스타그램 앱 만들기</p>
+:ET
