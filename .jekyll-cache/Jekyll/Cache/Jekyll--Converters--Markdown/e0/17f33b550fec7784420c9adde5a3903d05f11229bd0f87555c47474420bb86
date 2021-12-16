@@ -1,0 +1,44 @@
+I"K<h2 id="1-사진앱을-사용해야-할-때">1. 사진앱을 사용해야 할 때</h2>
+<p>sns 업로드, 카톡 전송 등등 앱을 사용하면서 다양한 경우에 사진을 사용할 때가 있다.<br />
+<br />
+그럴 경우 아이폰 자체 앱인 사진앱에 접근해 사진을 선택해야 한다.<br />
+<br />
+이러한 사진앱에 대한 접근이 필요할 때 사용하는 <code class="language-plaintext highlighter-rouge">UIImagePickerController</code>를 알아보도록 하자</p>
+
+<h2 id="2-uiimagepickercontroller-선언">2. UIImagePickerController 선언</h2>
+<p>나는 인스타그램 유사 앱을 만들면서 게시물 업로드 버튼을 누르면 <code class="language-plaintext highlighter-rouge">UIImagePickerController</code>가 나타나도록 할 것이다.<br />
+<br />
+일단 <code class="language-plaintext highlighter-rouge">UIImagePickerController</code>를 선언하도록 하자</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">private</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">imagePickerController</span><span class="p">:</span> <span class="kt">UIImagePickerController</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">imagePickerController</span> <span class="o">=</span> <span class="kt">UIImagePickerController</span><span class="p">()</span>
+    <span class="c1">// 사진첩 열기</span>
+    <span class="n">imagePickerController</span><span class="o">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="o">.</span><span class="n">photoLibrary</span>
+
+    <span class="k">return</span> <span class="n">imagePickerController</span>
+<span class="p">}()</span></code></pre></figure>
+
+<p><br /></p>
+
+<p>다음과 같이 <code class="language-plaintext highlighter-rouge">imagePickerController</code>를 선언해주었다.<br />
+<br />
+<code class="language-plaintext highlighter-rouge">imagePickerController</code>변수를 선언하였으니 버튼을 터치하면 넘어갈 수 있도록 설정하자.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="o">...</span>
+
+<span class="k">let</span> <span class="nv">uploadButton</span> <span class="o">=</span> <span class="kt">UIBarButtonItem</span><span class="p">(</span>
+    <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"plus.app"</span><span class="p">),</span>
+    <span class="nv">style</span><span class="p">:</span> <span class="o">.</span><span class="n">plain</span><span class="p">,</span>
+    <span class="nv">target</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span>
+    <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">didTapUploadButton</span><span class="kd">)</span>
+<span class="p">)</span>
+
+<span class="kd">@objc</span> <span class="kd">func</span> <span class="nf">didTapUploadButton</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">present</span><span class="p">(</span><span class="n">imagePickerController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="o">...</span></code></pre></figure>
+
+<p><br /><br /><br /><br />
+출처 : 30개 프로젝트로 배우는 iOS 앱 개발 with Swift 초격차 패키지 Online - part 4. 인스타그램 앱 만들기</p>
+:ET
