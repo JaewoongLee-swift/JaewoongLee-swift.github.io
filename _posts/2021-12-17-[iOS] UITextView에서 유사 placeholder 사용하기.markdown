@@ -90,6 +90,22 @@ extension UploadViewController: UITextViewDelegate {
 `textViewDidBeginEditing`함수를 사용해 textView에 텍스트가 입력이 시작되고 해당 텍스트의 색상이 `.secondaryLabel`(회색)일 경우, textView내의 텍스트는 사라지고 텍스트의 색상은 `.label`(기본 라벨색상)으로 변경된다.<br/>
 <br/>
 또한 `guard`문을 통해 분기를 설정해 줌으로써, 텍스트를 입력하다 초기화되거나 하는 오류를 방지하였다.<br/>
+마지막으로 delegate를 사용하였으므로 textView 변수로 돌아가 delegate 설정을 해주자.<br/>
+<br/>
+{% highlight swift %}
+private lazy var textView: UITextView = {
+    let textView = UITextView()
+    textView.text = "문구 입력..."
+    // placeholder와 같은 회색폰트로 설정
+    textView.textColor = .secondaryLabel
+    textView.font = .systemFont(ofSize: 15.0)
+    // delegate설정
+    textView.delegate = self
+
+    return textView
+   }()
+{% endhighlight %}
+
 <br/>
 시뮬레이터를 통해서 확인해 보도록 하자.<br/>
 <br/>
