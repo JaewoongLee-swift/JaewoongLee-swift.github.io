@@ -1,0 +1,7 @@
+I"U<h2 id="1-uitextview-사용">1. UITextView 사용</h2>
+<p>인스타그램 유사 앱의 게시물 업로드를 구현하면서 게시물의 이미지를 선택한 후 텍스트를 작성하는 화면을 만들었다<br />
+<br />
+<img width="328" alt="스크린샷 2021-12-17 오후 4 25 32" src="https://user-images.githubusercontent.com/83946704/146505916-616ef55c-ccba-4f1d-a27b-905a88801ac8.png" /><br />
+<br />
+하지만 화면 상으로 TextView가 있는지 없는지 알아채기 어렵기 때문에, 확인할 수 있게끔 표시를 해주도록 하자.<br /></p>
+:ET
