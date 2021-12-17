@@ -31,3 +31,7 @@ last_modified_at: 2021-12-16-17:00:00 +0900
 ### 21년 12월 16일
 - UIImagePickerController - 사진앱 사용
 <https://jaewoonglee-swift.github.io/ios/iOS-UIImagePickerController-사진앱-사용하기/>
+
+### 21년 12월 17일
+- UITextView에서 유사 placeholder 구현
+<https://jaewoonglee-swift.github.io/ios/iOS-UITextView에서-유사-placeholder-사용하기/>
