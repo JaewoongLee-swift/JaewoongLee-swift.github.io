@@ -1,0 +1,23 @@
+I"<h2 id="1-reactive-x">1. Reactive X</h2>
+
+<p>RxSwift를 배우기 위해 Rx, ReactiveX가 무엇인지 알고 지나가자.<br />
+<br /></p>
+<ul>
+  <li>Reactive X란?
+    <blockquote>
+      <p>프로그래밍에서 데이터가 동기식이든, 비동기식이든 상관없이 명령형 프로그래밍 언어가 데이터 요소들에서 작동할 수 있도록 하는 도구.<br />
+(위키백과 - ReactiveX)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><br />
+흠… 어렵다. 이해를 쉽게 하기위해 다른 블로그에서의 정리글을 옮겨보자면,</p>
+<blockquote>
+  <p>ReactiveX는 비동기에 대한 스트림(결과)를 관찰하고 그것에 반응해서 무언가를 할 수 있는 프로그래밍 패러다임<br />
+출처 : <a href="https://magi82.github.io/ios-rxswift-01/">https://magi82.github.io/ios-rxswift-01/</a></p>
+</blockquote>
+
+<p><br /><br /><br /><br />
+출처 : 30개 프로젝트로 배우는 iOS 앱 개발 with Swift 초격차 패키지 Online - part 4. 인스타그램 앱 만들기</p>
+:ET
