@@ -3,7 +3,7 @@ title: "TIL 기록장"
 permalink: /til/
 layout: single
 author_profile: true
-last_modified_at: 2021-12-16-17:00:00 +0900
+last_modified_at: 2022-01-06-22:55:00 +0900
 ---
 
 ## iOS/Swift TIL(Today I Learned) 기록
@@ -39,3 +39,7 @@ last_modified_at: 2021-12-16-17:00:00 +0900
 ### 21년 12월 23일
 - RxSwift란?
 <https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-RxSwift란/>
+
+### 22년 01월 06일
+- RxSwift - Observable
+<https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable-알아보기/>
