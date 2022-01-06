@@ -1,49 +1,55 @@
-I"<h2 id="1-reactive-x">1. Reactive X</h2>
+I"� <h2 id="1-observable-이란">1. Observable 이란</h2>
 
-<p>RxSwift를 배우기 위해 Rx, ReactiveX가 무엇인지 알고 지나가자.<br />
+<p>지난 포스팅에서, RxSwift를 알아보았다.<br />
+<br />
+이번 포스팅에선 RxSwift의 한 구성요소인 Observable에 대해 알아보도록 하자.<br />
 <br /></p>
+
 <ul>
-  <li>Reactive X란?
+  <li>Observable이란?
     <blockquote>
-      <p>프로그래밍에서 데이터가 동기식이든, 비동기식이든 상관없이 명령형 프로그래밍 언어가 데이터 요소들에서 작동할 수 있도록 하는 도구.<br />
-(위키백과 - ReactiveX)</p>
+      <p>제너럴타입의 객체로, <code class="language-plaintext highlighter-rouge">T</code>형태의 데이터 snapshot을 전달 할 수 있는 일련의 이벤트를 비동기적으로 생성하는 기능을 가짐.</p>
     </blockquote>
   </li>
 </ul>
 
 <p><br />
-흠… 어렵다. 이해를 쉽게 하기위해 다른 블로그에서의 정리글을 옮겨보자면,</p>
-<blockquote>
-  <p>ReactiveX는 비동기에 대한 스트림(결과)를 관찰하고 그것에 반응해서 무언가를 할 수 있는 프로그래밍 패러다임</p>
-</blockquote>
+지난 포스팅 내용과 같이, <code class="language-plaintext highlighter-rouge">Observable</code>은 제너럴 타입의 객체이며 실시간으로 세 가지 유형의 이벤트를 방출한다.<br />
+<br /></p>
 
-<p>(출처 : <a href="https://magi82.github.io/ios-rxswift-01/">https://magi82.github.io/ios-rxswift-01/</a>)</p>
-
-<p>좀 더 이해를 쉽게 해보자면….<br />
+<p><code class="language-plaintext highlighter-rouge">Observable</code>은 일정 기간 동안 계속해서 이벤트를 생성하며 이러한 행동을 emit이라고 한다.<br />
 <br />
-비동기의 예로 서버통신에 ReactiveX를 사용한다면, 통신결과가 언제 나올지 관찰하고 통신결과에 반응해서 어떠한 행동을 할 수 있게 만들어주는 것이라 생각하면 되겠다.</p>
-
-<h2 id="2-rxswift">2. RxSwift</h2>
-<p>ReactiveX를 알았으니, RxSwift는 Swift언어에 ReactiveX를 입혔다는 것을 알 수 있다.<br />
+세 가지 이벤트는 next, error, completed 세가지로 구성된다.<br />
 <br />
-조금 더 정확이 알아보자면,<br />
-RxSwift는 기본적으로 비동기적으로 움직이는 애플의 api들과 수시로 상태가 변하는 환경에서 보다 직관적이고 효율적인 코드를 작성할 수 있게 도와준다.<br />
-<br />
-RxSwift를 사용하기 위해선 구성 요소를 알아야하는데 아래엔 다음 3가지를 설명하겠다.</p>
-<ul>
-  <li>Observable</li>
-  <li>Operator</li>
-  <li>Scheduler</li>
-</ul>
+중요한 점은 이 모든 이벤트들은 비동기적으로 발생한다는 것이다.</p>
 
-<h3 id="2-1-observable">2-1. Observable</h3>
-<p><code class="language-plaintext highlighter-rouge">Observable&lt;T&gt;</code>란?<br /></p>
+<h2 id="2-observable의-생명주기">2. Observable의 생명주기</h2>
+<p>생명주기를 보여줌에 앞서, Rx의 흐름에 따라 값을 표기하는 방식인 ‘marble diagram’ 으로 나타내도록 하겠다.</p>
+
+<p><img width="328" src="https://user-images.githubusercontent.com/83946704/148389744-9a058c20-0e2e-49e3-936a-7bd1d3405137.png" /><br /></p>
+
+<p>위의 marble diagram은 세 개의 Observable을 나타내었다.<br />
+<br />
+<code class="language-plaintext highlighter-rouge">Observable</code>은 각각의 next 이벤트를 통해서 요소(element)들을 방출하게 되는데, 첫번째와 두번째 <code class="language-plaintext highlighter-rouge">Observable</code>은 3개의 이벤트를 방출한 뒤 종료하게 된다.<br />
+<br />
+두번째 <code class="language-plaintext highlighter-rouge">Observable</code>의 diagram에서 맨 끝의 수직선은 completed 이벤트를 표현한 것이다.<br />
+<br />
+세번째 <code class="language-plaintext highlighter-rouge">Observable</code>은 다른것들과 다르게 error가 발생하였다(X로 표현됨).<br />
+<br />
+이벤트가 종료된 것은 앞서 두 <code class="language-plaintext highlighter-rouge">Observable</code>과 동일하지만 error를 통해 종료되었다는 차이점이 있다.</p>
+
+<h3 id="2-1-next-error-completed">2-1. next, error, completed</h3>
+<p><code class="language-plaintext highlighter-rouge">Observable</code>은 next, error, completed 이 세가지 이벤트만 가지는데 다음과 같은 특징을 가진다.</p>
 
 <ol>
-  <li>제너럴타입의 객체로, <code class="language-plaintext highlighter-rouge">T</code>형태의 데이터 snapshot을 전달 할 수 있는 일련의 이벤트를 비동기적으로 생성하는 기능을 가진다.</li>
-  <li>하나 이상의 <code class="language-plaintext highlighter-rouge">observers</code>가 실시간으로 어떤 이벤트에 반응한다.</li>
-  <li>세 가지 유형의 이벤트만 방출한다.</li>
+  <li>Observable은 어떤 구성요소를 가지는 next 이벤트를 계속해서 방출할 수 있다.</li>
+  <li>Observable은 error 이벤트를 방출하여 완전히 종료될 수 있다.</li>
+  <li>Observable은 completed 이벤트를 방출하여 완전히 종료될 수 있다.</li>
 </ol>
+
+<p>이러한 이벤트들의 특징을 확인하기 위해 RxSwift의 문서를 좀 더 살펴보자.</p>
+
+<p><img width="328" src="https://user-images.githubusercontent.com/83946704/148392677-9c394cf6-0b1a-49e4-b48f-42e6023859e7.png" /><br /></p>
 
 <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">enum</span> <span class="kt">Event</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="k">case</span> <span class="nf">next</span><span class="p">(</span><span class="kt">Element</span><span class="p">)</span>      <span class="c1">// Observable의 어떠한 다음 요소</span>
@@ -79,7 +85,7 @@ RxSwift를 사용하기 위해선 구성 요소를 알아야하는데 아래엔 
 <br />
 하나의 <code class="language-plaintext highlighter-rouge">Observable</code>을 <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">subscribe</code>와 같은 연산자들이 각각의 결과값을 조합하고 계산한 다음 결과를 내뱉는 것.<br /></p>
 
-<h3 id="2-3-scheduler">2-3 Scheduler</h3>
+<h3 id="2-3-scheduler">2-3. Scheduler</h3>
 <p><code class="language-plaintext highlighter-rouge">Scheduler</code>란?<br />
 RxSwift에서 dispatchQueue와 동일한 것으로 더욱 강력하고 사용하기 쉽다.<br />
 <br />
