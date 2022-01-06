@@ -81,7 +81,7 @@ UIDevice.rx.orientation
 <br/>
 하나의 `Observable`을 `filter`, `map`, `subscribe`와 같은 연산자들이 각각의 결과값을 조합하고 계산한 다음 결과를 내뱉는 것.<br/>
 
-### 2-3 Scheduler
+### 2-3. Scheduler
 `Scheduler`란?<br/>
 RxSwift에서 dispatchQueue와 동일한 것으로 더욱 강력하고 사용하기 쉽다.<br/>
 <br/>
