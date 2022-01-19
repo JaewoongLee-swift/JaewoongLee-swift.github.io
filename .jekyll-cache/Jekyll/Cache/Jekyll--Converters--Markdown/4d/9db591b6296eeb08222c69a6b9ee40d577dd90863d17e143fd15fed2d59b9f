@@ -1,4 +1,5 @@
-I"�	<h2 id="iosswift-tiltoday-i-learned-기록">iOS/Swift TIL(Today I Learned) 기록</h2>
+I"�
+<h2 id="iosswift-tiltoday-i-learned-기록">iOS/Swift TIL(Today I Learned) 기록</h2>
 
 <h3 id="21년-12월-8일">21년 12월 8일</h3>
 <ul>
@@ -47,4 +48,10 @@
   <li>RxSwift란?</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-RxSwift란/">https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-RxSwift란/</a></p>
+
+<h3 id="22년-01월-06일">22년 01월 06일</h3>
+<ul>
+  <li>RxSwift - Observable</li>
+</ul>
+<p><a href="https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable-알아보기/">https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable-알아보기/</a></p>
 :ET

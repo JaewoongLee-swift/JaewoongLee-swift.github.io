@@ -1,0 +1,86 @@
+I"�<p>지난 포스팅을 통해 <code class="language-plaintext highlighter-rouge">Observable</code>을 알아보았으니 <code class="language-plaintext highlighter-rouge">Observable</code>의 이벤트를 처리할 수 있는 다양한 연산자 중, 생성 Operator(연산자)를 알아보도록 하자.<br />
+<br /></p>
+
+<h2 id="0-subscribe">0. Subscribe</h2>
+<p>일단 Operator들을 알아보기 전 subscribe(구독)에 대해 알 필요가 있다.<br />
+<br />
+Rx를 사용할 때, Observable이 어떠한 이벤트를 내보낸다는 것은 어떻게 알까?<br />
+<br />
+Observable는 실제로는 sequence 정의일 뿐이며 subscribe 되기 전에는 어떠한 이벤트도 내보내지 않는다.<br />
+<br />
+따라서 실제로 잘 작동하는지 확인하기 위해선 반드시 subscribe 해야하는 것을 명심하도록 하자.<br />
+<br /></p>
+
+<h2 id="1-just">1. Just</h2>
+<p><code class="language-plaintext highlighter-rouge">just</code>는 단 하나의 element만 방출시키는 연산자이다.<br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">just</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="nv">onNext</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="cp">#=&gt;	prints 1    </span></code></pre></figure>
+
+<h2 id="2-of">2. Of</h2>
+<p><code class="language-plaintext highlighter-rouge">of</code>는 여러개의 element를 방출시키는 연산자이다.<br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="nv">onNext</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="cp">#=&gt;	prints 1</span>
+<span class="cp">#=&gt;	prints 2</span>
+<span class="cp">#=&gt;	prints 3</span>
+<span class="cp">#=&gt;	prints 4</span>
+<span class="cp">#=&gt;	prints 5    </span></code></pre></figure>
+
+<p>쉼표를 기준으로 element를 하나씩 방출한다.<br />
+<br />
+여러개의 element를 방출하지만 array타입의 element는 array형태 그대로 방출한다.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">of</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+    <span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="nv">onNext</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="cp">#=&gt;	prints [1, 2, 3, 4, 5]    </span></code></pre></figure>
+
+<h2 id="3-from">3. From</h2>
+<p><code class="language-plaintext highlighter-rouge">from</code>은 바로 위에서 다룬 <code class="language-plaintext highlighter-rouge">of</code>연산자와 유사하게 여러개의 element를 방출하지만 array형태의 element만 받으며 해당 array의 요소들을 하나씩 방출한다.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+    <span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="nv">onNext</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="cp">#=&gt;	prints 1</span>
+<span class="cp">#=&gt;	prints 2</span>
+<span class="cp">#=&gt;	prints 3</span>
+<span class="cp">#=&gt;	prints 4</span>
+<span class="cp">#=&gt;	prints 5    </span></code></pre></figure>
+
+<h2 id="4-empty">4. empty</h2>
+<p><code class="language-plaintext highlighter-rouge">empty</code>는 아무런 element를 방출하지 않는다.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Observable</span><span class="o">.</span><span class="nf">empty</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">subscribe</span><span class="p">{</span>
+      <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="cp">#=&gt;	no prints</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">empty</code>는 element도 없고 이벤트도 없는 <code class="language-plaintext highlighter-rouge">Observable</code>을 만들때 사용된다.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;.</span><span class="nf">empty</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">subscribe</span><span class="p">{</span>
+      <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="cp">#=&gt;	prints completed</span></code></pre></figure>
+
+<p><br /></p>
+
+<p><br /><br /><br /><br />
+출처 : 30개 프로젝트로 배우는 iOS 앱 개발 with Swift 초격차 패키지 Online - part 4. Github 앱 만들기</p>
+:ET
