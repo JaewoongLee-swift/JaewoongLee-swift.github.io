@@ -31,3 +31,5 @@ last_modified_at: 2022-01-19-16:19:00 +0900
 <https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable-알아보기/>
 - 1월 19일 : RxSwift - Operator 1
 <https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable의-다양한-Operator(연산자)/>
+- 1월 26일 : RxSwift - Operator 2
+<https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable의-다양한-Operator(연산자)2/>
