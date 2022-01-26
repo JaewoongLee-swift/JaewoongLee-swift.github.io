@@ -1,0 +1,3 @@
+I"�<p>이번 포스팅에선 메모리 누수방지를 위해 무조건 필요한 <code class="language-plaintext highlighter-rouge">dispose</code>와 남은 생성 operator들을 알아보도록 하겠다.<br />
+<br /></p>
+:ET

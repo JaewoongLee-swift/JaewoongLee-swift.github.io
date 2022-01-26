@@ -1,57 +1,47 @@
-I"�
+I"�
 <h2 id="iosswift-tiltoday-i-learned-기록">iOS/Swift TIL(Today I Learned) 기록</h2>
 
-<h3 id="21년-12월-8일">21년 12월 8일</h3>
+<h3 id="21년-12월">21년 12월</h3>
 <ul>
-  <li>재귀함수란?</li>
+  <li>12월 8일 : 재귀함수란?</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/알고리즘/Swift알고리즘-재귀함수란/">https://jaewoonglee-swift.github.io/알고리즘/Swift알고리즘-재귀함수란/</a></p>
-
-<h3 id="21년-12월-9일">21년 12월 9일</h3>
 <ul>
-  <li>SF Symbol의 사이즈가 다를때</li>
+  <li>12월 9일 : SF Symbol의 사이즈가 다를때</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-SF-Symbol의-사이즈가-다를때/">https://jaewoonglee-swift.github.io/ios/iOS-SF-Symbol의-사이즈가-다를때/</a></p>
-
-<h3 id="21년-12월-10일">21년 12월 10일</h3>
 <ul>
-  <li>백준 2231번 풀이(+ 브루트포스란?)</li>
+  <li>12월 10일 : 백준 2231번 풀이(+ 브루트포스란?)</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/백준/알고리즘/백준으로-배우는-Swift-분해합-(백준-2231번)/">https://jaewoonglee-swift.github.io/백준/알고리즘/백준으로-배우는-Swift-분해합-(백준-2231번)/</a></p>
-
-<h3 id="21년-12월-12일">21년 12월 12일</h3>
 <ul>
-  <li>custom UIView, custom class 이용하기</li>
+  <li>12월 12일 : custom UIView, custom class 이용하기</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-간단한-custom-UIView를-만들어-custom-class-이용하기/">https://jaewoonglee-swift.github.io/ios/iOS-간단한-custom-UIView를-만들어-custom-class-이용하기/</a></p>
-
-<h3 id="21년-12월-15일">21년 12월 15일</h3>
 <ul>
-  <li>actionSheet 사용하기</li>
+  <li>12월 15일 : actionSheet 사용하기</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-actionSheet-사용하기/">https://jaewoonglee-swift.github.io/ios/iOS-actionSheet-사용하기/</a></p>
-
-<h3 id="21년-12월-16일">21년 12월 16일</h3>
 <ul>
-  <li>UIImagePickerController - 사진앱 사용</li>
+  <li>12월 16일 : UIImagePickerController - 사진앱 사용</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-UIImagePickerController-사진앱-사용하기/">https://jaewoonglee-swift.github.io/ios/iOS-UIImagePickerController-사진앱-사용하기/</a></p>
-
-<h3 id="21년-12월-17일">21년 12월 17일</h3>
 <ul>
-  <li>UITextView에서 유사 placeholder 구현</li>
+  <li>12월 17일 : UITextView에서 유사 placeholder 구현</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-UITextView에서-유사-placeholder-사용하기/">https://jaewoonglee-swift.github.io/ios/iOS-UITextView에서-유사-placeholder-사용하기/</a></p>
-
-<h3 id="21년-12월-23일">21년 12월 23일</h3>
 <ul>
-  <li>RxSwift란?</li>
+  <li>12월 23일 : RxSwift란?</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-RxSwift란/">https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-RxSwift란/</a></p>
 
-<h3 id="22년-01월-06일">22년 01월 06일</h3>
+<h3 id="22년-1월">22년 1월</h3>
 <ul>
-  <li>RxSwift - Observable</li>
+  <li>1월 6일 : RxSwift - Observable</li>
 </ul>
 <p><a href="https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable-알아보기/">https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable-알아보기/</a></p>
+<ul>
+  <li>1월 19일 : RxSwift - Operator 1</li>
+</ul>
+<p><a href="https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable의-다양한-Operator(연산자)/">https://jaewoonglee-swift.github.io/ios/iOS-RxSwift-Observable의-다양한-Operator(연산자)/</a></p>
 :ET

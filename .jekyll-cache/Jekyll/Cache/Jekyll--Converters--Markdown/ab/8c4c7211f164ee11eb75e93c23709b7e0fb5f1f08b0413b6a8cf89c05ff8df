@@ -1,0 +1,9 @@
+I"<h2 id="0-dispose-disposebag">0. Dispose, DisposeBag</h2>
+<p>이번 포스팅에선 메모리 누수방지를 위해 무조건 필요한 <code class="language-plaintext highlighter-rouge">dispose</code>를 먼저 알아보고, 이후에 남은 생성 operator들을 알아보도록 하겠다.<br /></p>
+<h3 id="1-dispose">1. Dispose</h3>
+<p>지난 포스팅에서 Observable은 구독(subscribe)하지 않으면 어떠한 이벤트도 내지않는 sequence일 뿐이라고 말했다.<br />
+<br />
+만약 무한한 element를 방출하는 Observable일 경우 구독을 한 뒤 계속해서 이벤트를 방출할 텐데, 어떻게 구독을 멈출 수 있을까?<br />
+<br />
+바로 <code class="language-plaintext highlighter-rouge">dispose()</code>를 이용해 멈출 수 있다.</p>
+:ET
