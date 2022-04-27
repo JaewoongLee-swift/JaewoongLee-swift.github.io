@@ -20,7 +20,7 @@ C에서의 switch문은 각 case 마다 끝에 break문을 삽입하지 않으�
 따라서, Swift의 switch문은 C에서와 같은 문제를 보완하여 더 간결하면서 예측 가능하고, 실수로 여러 case들을 실행하는 것을 피할 수 있는 장점을 가진다.<br/>
 <br/>
 
-### 1. fallthrough
+## 1. fallthrough
 위에서 알아봤듯, Swift의 switch문은 C에서의 switch문의 불편함을 해결하기 위해 다르게 만들어졌다.<br/>
 <br/>
 하지만 C에서와 비슷하게 동작하는 switch문을 필요로 할 수 있으므로, 대체하여 사용할 수 있도록 한 것이 `fallthrough`문 이다.<br/>
