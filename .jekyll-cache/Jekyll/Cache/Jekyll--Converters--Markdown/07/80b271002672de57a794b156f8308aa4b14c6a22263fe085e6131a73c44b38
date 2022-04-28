@@ -1,0 +1,25 @@
+I"
+<h2 id="0-unicode-in-swift">0. Unicode in swift</h2>
+<p>유니코드는 다른 쓰기 시스템에서 텍스트를 인코딩, 표현 및 처리하는 국제 표준이다.<br />
+<br />
+모든 언어의 거의 모든 문자를 표준화된 형태로 표현하고, 텍스트 파일이나 웹 페이지와 같은 외부 소스에서 해당 문자를 읽고 쓸 수 있다.<br />
+<br />
+Swift의 String과 Character는 유니코드를 완전히 준수하고 있다.</p>
+
+<h2 id="1-extended-grapheme-clusters">1. Extended Grapheme Clusters</h2>
+<p>Swift의 Character의 모든 인스턴스는 하나의 <code class="language-plaintext highlighter-rouge">Extended Grapheme Clusters</code>를 나타낸다고 한다.<br />
+<br />
+<code class="language-plaintext highlighter-rouge">Extended Grapheme Clusters</code>란 결합될 때 사람이 읽을 수 있는 단일 문자를 생성하는 하나 이상의 유니코드 스칼라의 시퀀스이다.<br />
+<br /></p>
+
+<h2 id="2-마무리">2. 마무리</h2>
+<p>Swift의 switch문에 있는 fallthrough문에 대하여 간략하게 알아보았다.<br />
+<br />
+오랜만에 정리한 내용을 올린 만큼 앞으로 더 자주올리길!</p>
+
+<p><br /><br /><br /><br />
+출처 : Swift 공식문서, Control Flow (Control Transfer Statements - Fallthrough)
+(<a href="https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html">https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html</a>)</p>
+
+<p>참고 : <a href="https://0urtrees.tistory.com/134">https://0urtrees.tistory.com/134</a></p>
+:ET
