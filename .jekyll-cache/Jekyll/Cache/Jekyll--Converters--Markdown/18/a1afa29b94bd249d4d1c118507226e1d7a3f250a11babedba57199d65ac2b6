@@ -1,0 +1,13 @@
+I"<h2 id="1-subscript란">1. Subscript란?</h2>
+<p>Subscript란 class, struct, enum(collection, array 등등)에서 각 sequence의 요소에 접근하기 위한 단축키이다.<br />
+<br />
+Subscript를 사용하여 설정 및 검색을 위한 별도의 메서드 없이 인덱스 별로 값을 설정하고 검색할 수 있다.<br />
+<br />
+설명으로는 이해가 잘 안되니 예시를 통해 보도록 하자.<br />
+<br />
+ex)<br />
+Array 인스턴스의 element를 <code class="language-plaintext highlighter-rouge">someArray[index]</code> 로 액세스<br />
+Dictionary 인스턴스의 element를 <code class="language-plaintext highlighter-rouge">someDictionary[key]</code>로 액세스<br />
+<br />
+이때 사용하는 대괄호 []가 Subscript인 것이다.</p>
+:ET
