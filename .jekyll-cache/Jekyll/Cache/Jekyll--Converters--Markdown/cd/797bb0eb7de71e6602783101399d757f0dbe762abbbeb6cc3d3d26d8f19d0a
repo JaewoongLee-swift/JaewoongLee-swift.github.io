@@ -1,0 +1,431 @@
+I"��<h2 id="1-arc">1. ARC</h2>
+<p>ARC (Automatic Reference Counting)<br />
+<br />
+Swift는 ARC를 사용하여 앱의 메모리 사용량을 추적하고 관리한다.<br />
+<br />
+ARC는 어떠한 클래스 인스턴스가 더 이상 필요하지 않을 때 클래스 인스턴스에 할당된 메모리를 자동으로 해제한다.<br />
+<br />
+ARC는 메모리를 관리하기 위해 코드 부분 간의 관계에 대한 추가적인 정보를 요구할 수도 있다.<br />
+<br />
+ARC는 Reference Type인 class 인스턴스에만 적용된다.<br />
+<br />
+struct와 enum은 value type이기 때문에 reference로 저장 및 전달되지 않으며 ARC도 적용되지 않는다.<br />
+<br /></p>
+
+<h2 id="2-how-arc-works">2. How ARC Works</h2>
+<p>class의 새 인스턴스를 만들 때마다 ARC는 해당 인스턴스에 대한 정보를 저장하기 위해 메모리를 할당한다.<br /><br />메모리에는 해당 인스턴스의 저장 프로퍼티, 인스턴스 타입에 대한 정보를 저장한다.<br /><br />인스턴스를 사용하다 더 이상 필요하지 않은 경우 ARC는 해당 인스턴스에서 사용하는 메모리를 해제해야 한다.<br /><br />쓸모없는 데이터를 메모리에 남겨두는 것은 비효율적이기 때문이다.<br /><br /></p>
+
+<p>ARC가 인스턴스의 메모리를 해제하면 더 이상 해당 인스턴스의 프로퍼티에 접근하거나 인스턴스 메모리를 호출할 수 없다.<br /><br /> 만약 아직 사용중인 인스턴스를 ARC가 할당 해제한다면 앱이 충돌할 가능성이 있다.<br /><br /></p>
+
+<p>따라서 ARC는 인스턴스가 언제까지 필요한지 알 수 있s도록 인스턴스를 참조하는 프로퍼티, 상수, 변수의 수를 추적한다.<br /><br /> 만약 하나 이상의 요소가 인스턴스를 참조하고 있다면 ARC는 할당을 취소하지 않는다.<br /><br /></p>
+
+<p>이를 가능하게 하기 위해 프로퍼티, 상수, 변수에 클래스 인스턴스를 할당할 때 마다 강한 참조를 만든다. <br /><br />지금까지 아무런 생각 없이 할당했던 코드들은 모두 강한 참조가 자동으로 적용되었던 코드들이었다…!!<br /><br /></p>
+
+<h2 id="3-arc-in-action">3. ARC in Action</h2>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s"> is being initialized."</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="nv">reference1</span><span class="p">:</span> <span class="kt">Person</span><span class="p">?</span>
+<span class="k">var</span> <span class="nv">reference2</span><span class="p">:</span> <span class="kt">Person</span><span class="p">?</span>
+<span class="k">var</span> <span class="nv">reference3</span><span class="p">:</span> <span class="kt">Person</span><span class="p">?</span>
+<span class="c1">// 옵셔널로 선언했기 때문에 아직은 아무런 데이터가 없어 Person 인스턴스를 참조하지 않음</span>
+
+<span class="n">reference1</span> <span class="o">=</span> <span class="kt">Person</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"이재웅"</span><span class="p">)</span> <span class="c1">// reference count : 1</span>
+<span class="c1">//prints 이재웅 is being initialized.</span>
+<span class="c1">//reference1과 Person 인스턴스 사이엔 강한 참조가 추가된다.</span></code></pre></figure>
+
+<p>따라서 ARC는 Person 인스턴스가 메모리에 유지되고 해제되지 않도록 한다.<br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">reference2</span> <span class="o">=</span> <span class="n">reference1</span> <span class="c1">// reference count : 2</span>
+<span class="n">reference3</span> <span class="o">=</span> <span class="n">reference1</span> <span class="c1">// reference count : 3</span>
+
+<span class="n">reference1</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">// reference count : 2</span>
+<span class="n">reference2</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">// reference count : 1</span></code></pre></figure>
+
+<p>할당해제를 해보자. 두 개의 변수에 nil을 할당하여 강한 참조 두개를 제거할 수 있다. <br /><br />하지만 아직 1개의 강한 참조가 남아있기 때문에 deinit 메세지는 출력되지 않는다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">reference3</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">// reference count : 0</span>
+<span class="c1">//prints 이재웅 is being deinitialized.</span></code></pre></figure>
+
+<p>마지막 변수에도 할당 해제를 해주면 참조 카운트가 0이되어 인스턴스가 메모리에서 해제된다.<br /><br /> 해제됨에 따라 deinit이 호출되어 메세지가 출력된다.<br /><br /></p>
+
+<p>즉, 참조 카운트가 0이 되어야 메모리에서 해제될 수 있는것이다.<br /><br /></p>
+
+<h2 id="4-strong-reference-cycles-between-class-instances">4. Strong Reference Cycles Between Class Instances</h2>
+<p>위에서 본듯 강한 참조를 사용하면 문제가 발생할 수 있다.<br /><br /> 이 문제는 인스턴스에서 다른 인스턴스에 대해 강한 참조를 가지고 있을 때 참조를 한 인스턴스가 해제 되었는데도 불구하고 참조를 계속 유지하는 문제이다. <br /><br />이렇게 되면 필요하지 않은 데이터를 유지해야 하기 때문에 메모리 누수가 발생한다.<br /><br /> 이러한 문제는 weak 참조나 unowned 참조를 사용하여 해결할 수 있는데 우선 어떻게 문제가 발생하는지 살펴보자.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Learner</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">nickname</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">house</span><span class="p">:</span> <span class="kt">Accommodation</span><span class="p">?</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">nickname</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">nickname</span> <span class="o">=</span> <span class="n">nickname</span> <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">nickname</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Accommodation</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">nickname</span><span class="p">:</span> <span class="kt">Learner</span><span class="p">?</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">type</span> <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Apartment </span><span class="se">\(</span><span class="n">type</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>다음 코드가 문제를 발생하는 코드. <br /><br />Learner 클래스의 house 프로퍼티는 Accommodation 클래스 인스턴스 타입이고 Accommodation 클래스의 nickname 프로퍼티는 Learner 클래스 인스턴스 타입이다. <br /><br />이 프로퍼티들은 옵셔널 타입으로 처음엔 nil이 할당된다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">curry</span><span class="p">:</span> <span class="kt">Learner</span><span class="p">?</span>
+<span class="k">var</span> <span class="nv">residenceHall</span><span class="p">:</span> <span class="kt">Accommodation</span><span class="p">?</span>
+
+<span class="n">curry</span> <span class="o">=</span> <span class="kt">Learner</span><span class="p">(</span><span class="nv">nickname</span><span class="p">:</span> <span class="s">"커리"</span><span class="p">)</span> <span class="c1">// Learner reference count : 1</span>
+<span class="n">residenceHall</span> <span class="o">=</span> <span class="kt">Accommodation</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="s">"생활관"</span><span class="p">)</span> <span class="c1">// Accommodation reference count : 1</span></code></pre></figure>
+
+<p>다음과 같은 클래스 인스턴스를 만들어보자. <br /><br />curry 변수에는 Learner 클래스의 인스턴스를 할당하고 residenceHall 변수에는 Accommodation 클래스의 인스턴스를 할당하였다.<br /><br /></p>
+
+<p><img width="756" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653113-405a8dc0-5723-44b6-bcfd-80f35bd5c8d8.png" /><br />
+(curry, residenceHall의 강한 참조 예시)<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">curry</span><span class="o">!.</span><span class="n">house</span> <span class="o">=</span> <span class="n">residenceHall</span> <span class="c1">// Accommodation reference count : 2</span>
+<span class="n">residenceHall</span><span class="o">!.</span><span class="n">nickname</span> <span class="o">=</span> <span class="n">curry</span> <span class="c1">// Learner reference count : 2</span></code></pre></figure>
+
+<p>위의 코드를 통해 각자의 프로퍼티에 클래스 인스턴스를 할당해보자.<br /><br /> curry 인스턴스의 house 프로퍼티에 residenceHall을 할당하고, residenceHall 인스턴스의 nickname 프로퍼티에 curry를 할당하였다.<br /><br /></p>
+
+<p><img width="786" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653234-c4ef188d-53a6-4066-b526-fb13b66d8e09.png" /><br />
+(curry, residenceHall의 각각 프로퍼티 강한 참조 예시)<br /><br /></p>
+
+<p>여기서 두 클래스 인스턴스에 대한 참조 카운트는 2가 된다.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">curry</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">// Learner reference count : 1</span>
+<span class="n">residenceHall</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">// Accommodation reference count : 1</span></code></pre></figure>
+
+<p>이제 위의 코드와 같이 변수에 데이터를 할당 해제하면, 강한 참조가 하나 사라지게 되므로 참조 카운트는 1이 된다.</p>
+
+<p><img width="752" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653298-af04f456-ecd1-43b0-b646-86b9be9034fb.png" /><br /></p>
+
+<p>위의 그림과 같이 Learner 인스턴스와 Accommdation 인스턴스 사이의 강한 참조가 유지되어 필요 없는 데이터가 메모리에서 해제되지 않고 유지된다.</p>
+
+<h2 id="5-resolving-strong-reference-cycles-between-class-instances">5. Resolving Strong Reference Cycles Between Class Instances</h2>
+<p>위와 같은 강한참조의 메모리 문제를 해결하기 위해 weak 참조와 unowned 참조(소유되지 않은 참조)를 swift에서는 제공하고 있다. <br /><br />weak 참조와 unowned 참조를 사용하면 한 인스턴스가 강한 참조 주기를 만들지 않고도 참조를 할 수 있게 된다. <br /><br />또한 weak 참조나 unowned 참조를 사용하면 참조 카운트를 변화시키지 않기 때문에 메모리 누수가 발생하지 않는다.<br /><br /></p>
+
+<h3 id="1-weak-references">1. Weak References</h3>
+<p>weak 참조는 참조하는 인스턴스를 강하게 유지하지 않는 참조로 ARC가 참조된 인스턴스를 처리하는 것에 관여하지 않는다.<br /><br /> weak 참조를 사용하려면 weak 키워드를 사용해야 한다.<br /><br /> weak 참조로 인스턴스를 참조하고 있더라도 해당 인스턴스는 할당 해제될 수 있고 weak 참조를 nil로 설정한다.<br /><br /> 이렇게 값이 변경될 수 있기 때문에 weak 참조는 항상 상수가 아닌 변수로 선언해야 하며 옵셔널 타입이어야 한다.<br /><br /></p>
+
+<p>위의 코드에서 나타난 문제를 weak 참조로 해결해보자.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Learner</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">nickname</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">house</span><span class="p">:</span> <span class="kt">Accommodation</span><span class="p">?</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">nickname</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">nickname</span> <span class="o">=</span> <span class="n">nickname</span> <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">nickname</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Accommodation</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">weak</span> <span class="k">var</span> <span class="nv">nickname</span><span class="p">:</span> <span class="kt">Learner</span><span class="p">?</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">type</span> <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Apartment </span><span class="se">\(</span><span class="n">type</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>이전 코드에서 Accommodation 클래스의 nickname 프로퍼티에 Learner 클래스 인스턴스를 weak 참조로 참조하였다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">curry</span> <span class="o">=</span> <span class="kt">Learner</span><span class="p">(</span><span class="nv">nickname</span><span class="p">:</span> <span class="s">"커리"</span><span class="p">)</span> <span class="c1">// Learner reference count : 1</span>
+<span class="n">residenceHall</span> <span class="o">=</span> <span class="kt">Accommodation</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="s">"생활관"</span><span class="p">)</span> <span class="c1">// Accommodation reference count : 1</span>
+
+<span class="n">curry</span><span class="o">!.</span><span class="n">house</span> <span class="o">=</span> <span class="n">residenceHall</span> <span class="c1">// Accommodation reference count : 2</span>
+<span class="n">residenceHall</span><span class="o">!.</span><span class="n">nickname</span> <span class="o">=</span> <span class="n">curry</span> <span class="c1">// Learner reference count : 1</span></code></pre></figure>
+
+<p>전과 동일하게 curry, residenceHall 변수를 만들고 클래스 인스턴스를 할당하였다.<br /><br /> 그 뒤에 각자의 프로퍼티에 클래스 인스턴스를 할당한다.</p>
+
+<p><img width="730" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653425-80c8ab44-a326-427a-9c55-0ea0d43dedab.png" /><br /></p>
+
+<p>아까와 다르게 이번엔 weak 참조를 사용했기 때문에 위와 같은 구조가 변하게 된다.<br /><br />
+여기서 curry 변수에 nil을 할당하게 된다면?<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">curry</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">// Learner reference count : 0</span>
+<span class="c1">// Accommodation reference count : 1</span>
+<span class="c1">//prints "커리 is being deinitialized."</span></code></pre></figure>
+
+<p><img width="725" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653464-029f10c4-8780-4e20-8cc4-76dd43d0feb1.png" /><br /></p>
+
+<p>결과적으로 다음과 같이 Learner 인스턴스에 대한 강한 참조가 없게 되고 그 말은 참조 카운트가 0이란 것이므로 메모리에서 해제된다.<br /><br /> 또한 curry 변수가 메모리에서 할당 해제되며 Accommodation을 참조하던 house 프로퍼티도 사라졌기 때문에 Accommodation 인스턴스에 대한 강한 참조도 하나 사라지게 된다.<br /><br /> 그럼 이제 residenceHall에서 Accommodation 인스턴스에 대한 강한 참조만 남게 되고 아래의 코드를 통해 없애줄 수 있게 된다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">residenceHall</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">// Accommodation reference count : 0</span>
+<span class="c1">//prints "Apartment 생활관 is being deinitialized."</span></code></pre></figure>
+
+<p><img width="746" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653497-e3d86841-cc9e-4022-8212-4f01284fb3f3.png" /><br /></p>
+
+<p>결과적으로 모든 참조가 해제되고 참조 카운트도 0이 되어 메모리에서 해제된다.</p>
+
+<h3 id="2-unowned-references">2. Unowned References</h3>
+<p>weak 참조와 마찬가지로 unowned 참조도 인스턴스를 참조할 때 참조 카운트를 변경하지 않는다.<br /><br /> 하지만 weak 참조와 달리 unowned 참조는 참조한 어떠한 인스턴스의 수명이 동일하거나 더 길 때 사용하는데, 쉽게 말해 메모리 해제되지 않는다는 확신을 가지고 있을 때 사용해야한다.<br /><br /> 사용할 땐 unowned 키워드를 배치하여 사용할 수 있다.<br /><br /></p>
+
+<p>메모리 해제가 되지 않을 것이란 확신이 들 때 사용해야 하기 때문에 약한 참조와는 달리 unowned 참조는 항상 값을 가져야 한다.<br /><br /> 따라서 옵셔널 타입이 될 수 없다.<br /><br /> 만약 unowned 참조로 참조한 인스턴스가 할당 해제되었는데 접근하려고 하면 당연하게도 런타임 오류가 발생한다.<br /><br /></p>
+
+<p>unowned 참조를 어떻게 사용하는지 살펴보자.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Customer</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">card</span><span class="p">:</span> <span class="kt">CreditCard</span><span class="p">?</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="p">}</span>
+    <span class="kd">deinit</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">CreditCard</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">number</span><span class="p">:</span> <span class="kt">UInt64</span>
+    <span class="k">unowned</span> <span class="k">let</span> <span class="nv">customer</span><span class="p">:</span> <span class="kt">Customer</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span> <span class="kt">UInt64</span><span class="p">,</span> <span class="nv">customer</span><span class="p">:</span> <span class="kt">Customer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">customer</span> <span class="o">=</span> <span class="n">customer</span>
+    <span class="p">}</span>
+    <span class="kd">deinit</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Card #</span><span class="se">\(</span><span class="n">number</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>여기서 봐야할 점은 CreditCard 클래스의 customer 프로퍼티는 Customer 클래스의 인스턴스를 참조할 때 unowned 참조를 사용한다는 것이다.<br /><br /> 즉 CreditCard가 존재하는 한 Customer는 반드시 존재할 것이라는 확신이 있다는 것이다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">curry</span><span class="p">:</span> <span class="kt">Customer</span><span class="p">?</span>
+
+<span class="n">curry</span> <span class="o">=</span> <span class="kt">Customer</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"커리"</span><span class="p">)</span>
+<span class="n">curry</span><span class="o">!.</span><span class="n">card</span> <span class="o">=</span> <span class="kt">CreditCard</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span> <span class="mi">1234_5678_9012_3456</span><span class="p">,</span> <span class="nv">customer</span><span class="p">:</span> <span class="n">curry</span><span class="o">!</span><span class="p">)</span></code></pre></figure>
+
+<p>Curry 변수에 Customer 클래스 인스턴스를 할당한다. 그 뒤 CreditCard 인스턴스를 curry의 card 프로퍼티에 할당한다.</p>
+
+<p><img width="867" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653630-f16fcde6-3d80-4d55-ad9a-3a9dcf4e3edd.png" /><br /></p>
+
+<p>두 개의 인스턴스는 위의 구조를 가지게 된다.<br /><br /> CreditCard 인스턴스가 Customer 인스턴스에 unowned 참조를 한 것을 주의 깊게 봐야 한다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">curry</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="c1">//prints "커리 is being deinitialized."</span>
+<span class="c1">//prints "Card #1234567890123456 is being deinitialized."</span></code></pre></figure>
+
+<p>이제 위의 코드로 curry를 nil로 설정해 Customer 인스턴스에 대한 강한 참조를 해제한다.</p>
+
+<p><img width="888" alt="var curry" src="https://user-images.githubusercontent.com/83946704/169653689-fde13168-c25e-4de7-a778-234843c6fabe.png" /><br /></p>
+
+<p>그러면 Customer 인스턴스의 참조 카운트가 0이 되어 메모리에서 해제된다.<br /><br /> 이렇게 되면 CreditCard 인스턴스에 대한 강한 참조도 사라지게 되어 모든 인스턴스의 메모리가 해제된다.<br /><br /></p>
+
+<h3 id="3-unowned-optional-references">3. Unowned Optional References</h3>
+<p>클래스에 옵셔널 타입으로 unowned 참조를 표시할 수 있다.<br /><br /> ARC 소유권 모델에서는 옵셔널 unowned 참조와 약한 참조 모두 동일한 컨텍스트에서 사용될 수 있다.<br /><br /> 차이점은 옵셔널 unowned 참조를 사용할 때 항상 유효한 객체를 참조하거나 nil로 설정되어 있는지 확인해야 한다는 점이다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Department</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">courses</span><span class="p">:</span> <span class="p">[</span><span class="kt">Course</span><span class="p">]</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">courses</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Course</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">unowned</span> <span class="k">var</span> <span class="nv">department</span><span class="p">:</span> <span class="kt">Department</span>
+    <span class="k">unowned</span> <span class="k">var</span> <span class="nv">nextCourse</span><span class="p">:</span> <span class="kt">Course</span><span class="p">?</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">in</span> <span class="nv">department</span><span class="p">:</span> <span class="kt">Department</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">department</span> <span class="o">=</span> <span class="n">department</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">nextCourse</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Course 클래스의 nextCourse를 보면 옵셔널 unowned 참조로 Course 클래스의 인스턴스를 참조한다.<br /><br /> 학과(Department)와 코스(Course)라고 이해하고 위 클래스를 보면 학과 클래스에는 배워야 할 과목들에 대한 코스가 있다.<br /><br /> 이는 반드시 존재하기 때문에 옵셔널로 정의되지 않았다.<br /><br /> 코스 클래스를 보면 어떠한 코스는 반드시 어떠한 학과의 것이기 때문에 옵셔널 타입이 아니지만 다음 코스는 있을 수도 없을 수도 있기 때문에 옵셔널로 나타낸 것이다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">department</span> <span class="o">=</span> <span class="kt">Department</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"화학공학"</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">intro</span> <span class="o">=</span> <span class="kt">Course</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"물리화학"</span><span class="p">,</span> <span class="nv">in</span><span class="p">:</span> <span class="n">department</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">intermediate</span> <span class="o">=</span> <span class="kt">Course</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"반응공학"</span><span class="p">,</span> <span class="nv">in</span><span class="p">:</span> <span class="n">department</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">advanced</span> <span class="o">=</span> <span class="kt">Course</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="err">“</span><span class="n">반도체공학</span><span class="err">”</span><span class="p">,</span> <span class="nv">in</span><span class="p">:</span> <span class="n">department</span><span class="p">)</span>
+
+<span class="n">intro</span><span class="o">.</span><span class="n">nextCourse</span> <span class="o">=</span> <span class="n">intermediate</span>
+<span class="n">intermediate</span><span class="o">.</span><span class="n">nextCourse</span> <span class="o">=</span> <span class="n">advanced</span>
+<span class="n">department</span><span class="o">.</span><span class="n">courses</span> <span class="o">=</span> <span class="p">[</span><span class="n">intro</span><span class="p">,</span> <span class="n">intermediate</span><span class="p">,</span> <span class="n">advanced</span><span class="p">]</span></code></pre></figure>
+
+<p>위의 코드에서는 1개의 학과와 3개의 코스를 만들었다.<br /><br /> unowned 참조는 ARC가 인스턴스를 할당 해제하는 것에 관여하지 않는다.<br /><br /> 따라서 옵셔널 unowned 참조가 nil 일 수 있다는 점을 제외하면 unowned 참조는 ARC에서 수행하는 것과 동일하게 작동한다.<br /><br />
+<img width="1003" alt="스크린샷 2022-05-19 오전 11 48 48" src="https://user-images.githubusercontent.com/83946704/169653813-710231be-7aa6-46d1-83dd-a661b5bd40d6.png" /><br /></p>
+
+<p>위에서 만든 인스턴스들의 구조는 위의 그림과 같다.</p>
+
+<h3 id="4-unowned-references-and-implicitly-unwrapped-optional-properties">4. Unowned References and Implicitly Unwrapped Optional Properties</h3>
+<p>지금까지 알아본 weak 참조 및 unowned 참조는 강한 참조 주기로 인해 발생할 수 있는 문제점을 해결하기 위해 사용되었다.<br /><br /></p>
+
+<p>Learner, Accommodation 클래스로 알아본 예는 weak 참조로 해결했고 Customer, CreditCard 클래스는 unowned 참조로 해결하였다.<br /><br /></p>
+
+<p>이번에 알아볼 예는 두 개의 프로퍼티에 항상 값이 있어야 하고 초기화가 완료되었을 땐 모두 nil이면 안 되는 경우다.<br /><br /> 이번예에서는 한 클래스의 unowned 프로퍼티를 다른 클래스의 강제 언래핑 옵셔널 프로퍼티와 결합하는 것이 유용하다.<br /><br /></p>
+
+<p>이렇게 하면 참조 주기를 피하면서 초기화가 완료되면 두 프로퍼티 모두에 직접 접근할 수 있다. 그럼 이러한 관계를 설정하는 방법을 알아보자.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Country</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">capitalCity</span><span class="p">:</span> <span class="kt">City</span><span class="o">!</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">capitalName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">capitalCity</span> <span class="o">=</span> <span class="kt">City</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">capitalName</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">City</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">unowned</span> <span class="k">let</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">Country</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">Country</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">country</span> <span class="o">=</span> <span class="n">country</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>위의 코드는 Country, City라는 두 개의 클래스를 정의하여 각 클래스는 다른 클래스의 인스턴스를 프로퍼티로 가진다.<br /><br /> 위의 코드를 해석해 보면 어떤 나라는 반드시 수도가 있어야 하므로 Country 클래스의 capitalCity 프로퍼티는 강제 언래핑 옵셔널 타입으로 선언되었다.<br /><br /> 따라서 Country 클래스의 생성자엔 City 생성자를 호출하여 capitalCity로 설정한 것을 볼 수 있고 City 생성자는 Country 인스턴스를 매개변수로 받는데 여기선 self로 사용되었다.<br /><br /> 따라서 Country 인스턴스가 완전히 초기화될 때까지 City 클래스의 생성자엔 self를 전달할 수 없다.<br /><br /></p>
+
+<p>이러한 부분을 처리하기 위해 Country의 capitalCity 프로퍼티를 강제 언래핑 옵셔널 타입으로 선언한다.<br /><br /> capitalCity 프로퍼티는 기본값이 nil이지만 래핑 해제할 필요 없이 접근할 수 있다.<br /><br /> 기본적으로 capitalCity가 nil을 갖기 때문에 Country의 생성자에 있는 City 생성자는 self를 전달할 수 있게 된다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">country</span> <span class="o">=</span> <span class="kt">Country</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"대한민국"</span><span class="p">,</span> <span class="nv">capitalName</span><span class="p">:</span> <span class="s">"서울"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">country</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s">의 수도는 </span><span class="se">\(</span><span class="n">country</span><span class="o">.</span><span class="n">capitalCity</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s">입니다."</span><span class="p">)</span>
+<span class="c1">//prints “대한민국의 수도는 서울입니다.”</span></code></pre></figure>
+
+<h2 id="6-strong-reference-cycles-for-closures">6. Strong Reference Cycles for Closures</h2>
+<p>지금까지 클래스 인스턴스의 프로퍼티가 서로에 대한 강한 참조를 보유할 때 강한 참조 주기가 생성되는 것을 살펴보았다.<br /><br /> 또한 이 때문에 발생하는 문제를 weak 참조와 unowned 참조를 사용해서 해결해보았다.<br /><br /></p>
+
+<p>클래스 인스턴스의 프로퍼티에 클로저를 할당하고 해당 클로저의 본문이 인스턴스를 캡처하는 경우에도 강한 참조주기가 발생할 수 있다.<br /><br /> 이러한 캡처는 클로저의 본문이 self로 인스턴스 프로퍼티나 메소드를 호출할 때 발생할 수 있다.<br /><br /> 이러한 경우 모두 강한 참조 주기를 생성한다.<br /><br /></p>
+
+<p>이렇게 생성되는 강한 참조 주기는 클로저도 참조 타입이기 때문인데, 프로퍼티에 클로저를 할당하면 해당 클로저에 대한 참조를 할당하는 것이다.<br /><br /> 즉 지금까지 살펴본 클래스 인스턴스의 예와 동일한 문제이다.<br /><br /> 지금까지는 클래스 인스턴스끼리의 참조였지만 이젠 클래스 인스턴스와 클로저 사이의 참조라는 점만 다르다.<br /><br /></p>
+
+<p>Swift에서는 클로저 캡처 목록으로 지금까지 살펴본 문제를 해결할 수 있다.<br /><br /> 이러한 해결방법을 알아보기 전에 문제가 어떻게 발생하는지를 먼저 이해해보자.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">HTMLElement</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
+
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">asHTML</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">text</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">text</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s">"&lt;</span><span class="se">\(</span><span class="k">self</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s">&gt;</span><span class="se">\(</span><span class="n">text</span><span class="se">)</span><span class="s">&lt;/</span><span class="se">\(</span><span class="k">self</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s">&gt;"</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s">"&lt;</span><span class="se">\(</span><span class="k">self</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s"> /&gt;"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>위의 코드로 self를 참조하는 클로저를 사용할 때 강한 참조가 어떻게 생성되는지 이해해보자.<br /><br /> 우선 위의 코드에서는 HTMLElement 클래스가 정의되어 있다.<br /><br /> 일반적인 name, text라는 프로퍼티와 lazy로 선언된 asHTML 프로퍼티를 정의하였다.<br /><br /> asHTML 프로퍼티는 문자열을 반환하는 클로저가 할당되어 있다.<br /><br /> 하지만 lazy 프로퍼티이기 때문에 직접 사용이 되기 전까지는 아무런 역할을 하지 않는다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">paragraph</span><span class="p">:</span> <span class="kt">HTMLElement</span><span class="p">?</span> <span class="o">=</span> <span class="kt">HTMLElement</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"p"</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="s">"hello, world"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">paragraph</span><span class="o">!.</span><span class="nf">asHTML</span><span class="p">())</span>
+<span class="c1">//prints "&lt;p&gt;hello, world&lt;/p&gt;"</span></code></pre></figure>
+
+<p>asHTML 프로퍼티는 lazy 프로퍼티이기 때문에 초기화가 완료된 인스턴스에서는 self에 접근할 수 있다.<br /><br /></p>
+
+<p><img width="851" alt="var paragraph" src="https://user-images.githubusercontent.com/83946704/169654010-adc8c357-0654-4fb6-87f6-30dd5833ac84.png" /><br /></p>
+
+<p>이렇게 HTMLElement 클래스를 사용하면 클래스 인스턴스와 asHTML에 사용되는 클로저 사이에 강한 참조 주기를 만들게 되고 위와 같은 구조를 갖게 된다.<br /><br /> 이때 클로저가 self를 여러 번 참조하더라도 하나의 강한 참조만 캡처한다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">paragraph</span> <span class="o">=</span> <span class="kc">nil</span></code></pre></figure>
+
+<p>이제 위의 코드로 변수를 nil로 설정해보자.<br /><br /> 하지만 클래스 인스턴스가 소멸되었을 때 호출되지 않은 것을 볼 수 있다.<br /><br /> 즉 HTMLElement 인스턴스가 할당 해제되지 않았다는 것이다.<br /><br /> 이는 메모리 누수가 발생한 것인데 이러한 문제는 어떻게 해결할 수 있을까?<br /><br /></p>
+
+<h3 id="1-resolving-strong-reference-cycles-for-closures">1. Resolving Strong Reference Cycles for Closures</h3>
+
+<p>클로저를 정의할 때 캡처 목록을 정의하여 클로저와 클래스 인스턴스 사이의 강한 참조 주기로 인해 발생하는 문제를 해결할 수 있다.<br /><br /> 캡처 목록은 클로저 본문 내에서 하나 이상의 참조 타입을 캡처할 때 사용할 규칙을 정의한다.<br /><br /> 두 개의 클래스 인스턴스 간에 참조 주기와 마찬가지로 캡처된 각 참조를 강한 참조가 아닌 weak 참조, unowned 참조로 선언하면 된다.<br /><br /></p>
+
+<p>swift의 클로저 내에서 self 멤버를 참조할 땐 항상 self를 붙여주는 것이 좋다. (someMethod() 대신 self.someMethod() 사용)<br /><br /></p>
+
+<h3 id="2-defining-a-capture-list">2. Defining a Capture List</h3>
+<p>캡처 목록을 한 번 만들어 보자.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">lazy</span> <span class="k">var</span> <span class="nv">someClosure</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="k">unowned</span> <span class="k">self</span><span class="p">,</span> <span class="k">weak</span> <span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">]</span>
+    <span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">stringToProcess</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="k">in</span>
+    <span class="c1">// closure body goes here</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>위의 코드와 같이 캡처 목록을 만들어 줄 수 있다.<br /><br /> 캡처 목록은 클로저의 매개변수 목록 앞에 작성해주면 된다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">lazy</span> <span class="k">var</span> <span class="nv">someClosure</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="k">unowned</span> <span class="k">self</span><span class="p">,</span> <span class="k">weak</span> <span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">]</span> <span class="k">in</span>
+    <span class="c1">// closure body goes here</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>위의 코드처럼 캡처 목록만 존재할 경우 클로저가 컨텍스트에서 추론할 수 있기 때문에 캡처 목록을 클로저의 배치하고 in 키워드를 뒤에 써주면 된다.<br /><br /></p>
+
+<h3 id="3-weak-and-unowned-references">3. Weak and Unowned References</h3>
+<p>클로저와 캡처하는 인스턴스가 항상 서로를 참조하고 항상 동시에 할당 해제된다면 unowned 참조로 정의해도 된다.<br /><br /> 하지만 캡처된 참조가 어느 시점에서 nil이 될 가능성이 있는 경우 weak 참조로 정의해야 한다.<br /><br /> weak 참조는 인스턴스가 할당 해제되면 자동으로 nil이 되기 때문에 항상 옵셔널 타입 이어야 한다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">HTMLElement</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
+
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">asHTML</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">[</span><span class="k">unowned</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">text</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">text</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s">"&lt;</span><span class="se">\(</span><span class="k">self</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s">&gt;</span><span class="se">\(</span><span class="n">text</span><span class="se">)</span><span class="s">&lt;/</span><span class="se">\(</span><span class="k">self</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s">&gt;"</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s">"&lt;</span><span class="se">\(</span><span class="k">self</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s"> /&gt;"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s"> is being deinitialized."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>그럼 아까 문제가 발생한  코드를 수정해보자.<br /><br /> 이번엔 HTMLElement 클래스의 asHTML 프로퍼티에 캡처 목록을 작성했다.<br /><br /> self를 unowned로 참조하여 문제를 해결한 것이다.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">paragraph</span><span class="p">:</span> <span class="kt">HTMLElement</span><span class="p">?</span> <span class="o">=</span> <span class="kt">HTMLElement</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"p"</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="s">"hello, world"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">paragraph</span><span class="o">!.</span><span class="nf">asHTML</span><span class="p">())</span>
+<span class="c1">//prints "&lt;p&gt;hello, world&lt;/p&gt;"</span></code></pre></figure>
+
+<p>따라서 위와 같이 클래스 인스턴스를 만들고 클로저를 사용하면 참조 구조는 다음과 같이 그릴 수 있다.<br /><br /></p>
+
+<p><img width="848" alt="var paragraph" src="https://user-images.githubusercontent.com/83946704/169654230-f5594afb-0d46-4670-a508-57067e6eccaa.png" /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">paragraph</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="c1">//prints ""p is being deinitialized.</span></code></pre></figure>
+
+<p>클로저에 의한 self 캡처는 unowned 참조이기 때문에 강한 참조를 만들지 않는다.<br /><br /> 따라서 위의 코드와 같이 변수에 nil을 할당하면 클래스 인스턴스가 할당 해제되어 소멸자가 호출되고 메세지가 출력되게 된다.<br /><br /></p>
+
+<h2 id="7-마무리">7. 마무리</h2>
+<p>Struct와 Class의 차이를 알아보다 ARC에 관한 내용이 궁금해 정리하게 되었다.<br />
+<br />
+기존에 생각없이 강한 참조를 사용하거나 메모리 누수를 신경쓰지 않았었는데 이번 정리를 통해 더 확실하게 코드를 작성할 수 있을것 같다.<br />
+<br />
+그래도 공부를 하다 보니 클로저에 대해서도 개념이 많이 부족한것같이 느껴진다.<br />
+<br />
+해야할게 많이 남아따!</p>
+
+<p><br /><br /><br /><br />
+출처 : Swift 공식문서, Automaitc Reference Counting<br />
+(<a href="https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html">https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html</a>)<br />
+참고 : Dev_Pingu, [Swift 문법] Swift 공식 문서 정리 - 24 - Automatic Reference Counting (ARC)<br />
+(<a href="https://icksw.tistory.com/80">https://icksw.tistory.com/80</a>)</p>
+:ET
