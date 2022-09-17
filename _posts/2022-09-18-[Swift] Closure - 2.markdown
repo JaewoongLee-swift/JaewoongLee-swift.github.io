@@ -6,7 +6,7 @@ categories:
 tags:
     - Closure
 toc: true
-last_modified_at: 2022-09-18-22:22:00 +0900
+last_modified_at: 2022-09-18-04:47:00 +0900
 ---
 ## 1. 트레일링 클로저(Trailing Closure)
 트레일링 클로저란?<br/><br/>
