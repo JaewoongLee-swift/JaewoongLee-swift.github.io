@@ -1,0 +1,323 @@
+I".m<h2 id="1-클로저에서-값을-캡쳐한다는-것은">1. 클로저에서 값을 캡쳐한다는 것은…</h2>
+<p>클로저의 기본 개념부터 보면…<br /><br />
+<strong>Closure란 내부 함수와 내부 함수에 영향을 미치는 주변 환경을 모두 포함한 객채이다.</strong><br /><br /></p>
+
+<p>예제를 통해 보자면</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">message</span> <span class="o">=</span> <span class="s">"Hi, I'm Curry!"</span>
+
+    <span class="c1">//클로저 범위 시작</span>
+    <span class="k">var</span> <span class="nv">num</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">let</span> <span class="nv">closure</span> <span class="o">=</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="p">}</span>
+    <span class="c1">//클로저 범위 끝</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>closure란 익명함수는, 클로저 내부에서 <strong>외부 변수인 num이라는 변수를 사용(print)</strong> 하기 때문에 <strong>num의 값을 클로저 내부적으로 저장</strong> 하고 있는데, 이것을 클로저에 의해 <strong>‘num의 값이 캡쳐되었다’</strong> 라고 표현함.<br /><br /></p>
+
+<p>message란 변수는 클로저 내부에서 사용하지 않기 때문에 <strong>클로저에 의해 값이 캡쳐되지 않음!</strong><br /><br /></p>
+
+<p>이것이 캡쳐라는 것이고… 이번엔 클로저의 값 캡쳐 방식에 대해 알아보자.</p>
+
+<h3 id="1-1-클로저의-값-캡쳐방식">1-1. 클로저의 값 캡쳐방식</h3>
+<p>결론부터 말하자면,<br /><br /></p>
+
+<p>Closure는 값을 캡쳐할 때 Value/Reference 타입에 관계 없이 Reference Capture한다.<br /><br /></p>
+
+<p>이게 또 무슨말이냐?<br /><br /></p>
+
+<p>위의 예시에서 <code class="language-plaintext highlighter-rouge">num</code> <strong>변수를 클로저 내부적으로 저장</strong>한다고 했음. 근데 <code class="language-plaintext highlighter-rouge">num</code>은 <strong>Int 타입이고 구조체 형식</strong>이기 때문에 <strong>Value 타입</strong>임. 따라서 <strong>값을 복사해서 저장</strong>해야 되는 것이 일반적!<br /><br /></p>
+
+<p>그러나 클로저는 <strong>Value/Reference 타입에 관계없이</strong> 캡쳐하는 값을 <strong>참조</strong>함!!<br /><br /></p>
+
+<p>이것을 <strong>Reference Capture</strong>라고 함.<br /><br /></p>
+
+<p>예시를 통해 보자.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">num</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"num check #1 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="k">let</span> <span class="nv">closure</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"num check #3 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"num check #2 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="nf">closure</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="cp">#=&gt; prints num check #1 = 0</span>
+<span class="cp">#=&gt; prints num check #2 = 20</span>
+<span class="cp">#=&gt; prints num check #3 = 20</span></code></pre></figure>
+
+<p>먼저, <code class="language-plaintext highlighter-rouge">closure</code>는 <code class="language-plaintext highlighter-rouge">num</code>이라는 외부 변수를 클로저 내부에서 사용하기 때문에 <code class="language-plaintext highlighter-rouge">num</code>을 캡쳐할 것임! 근데 어떻게 캡쳐한다?<br /> Reference Capture. 즉, <code class="language-plaintext highlighter-rouge">num</code>이란 변수를 참조함!<br /><br /></p>
+
+<p>따라서, <code class="language-plaintext highlighter-rouge">closure</code>를 실행하기 전에 <code class="language-plaintext highlighter-rouge">num</code> 이란 값을 외부에서 변경하면 클로저 내부에서 사용하는 <code class="language-plaintext highlighter-rouge">num</code>의 값 또한 변경됨!</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">num</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"num check #1 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="k">let</span> <span class="nv">closure</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"num check #3 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nf">closure</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"num check #2 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="cp">#=&gt; prints num check #1 = 0</span>
+<span class="cp">#=&gt; prints num check #3 = 20</span>
+<span class="cp">#=&gt; prints num check #2 = 20</span></code></pre></figure>
+
+<p>클로저 외부에 있는 <code class="language-plaintext highlighter-rouge">num</code>의 값도 변경이 됨!<br /><br /></p>
+
+<p>이렇듯, Closure는 값의 타입이 Value건 Reference건 모두 <strong>Reference Capture</strong>를 한다는 사실!<br /><br />
+그럼 만약 나는 <strong>Value Type으로 Capture</strong>를 하고 싶으면 어떻게 할까??</p>
+
+<h2 id="2-클로저의-캡쳐-리스트-capture-lists">2. 클로저의 캡쳐 리스트 (Capture Lists)</h2>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">closure</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="n">num</span><span class="p">,</span> <span class="n">num2</span><span class="p">]</span> <span class="k">in</span></code></pre></figure>
+
+<p>클로저의 시작인 <code class="language-plaintext highlighter-rouge">{</code> 의 바로 옆에 <code class="language-plaintext highlighter-rouge">[ ]</code>를 이용해 캡쳐할 멤버를 나열한다. 이때 <code class="language-plaintext highlighter-rouge">in</code> 키워드도 꼭 함께 작성한다.<br /><br /></p>
+
+<h3 id="2-1-value-type의-값을-복사해서-capture할-수-없을까">2-1. Value Type의 값을 복사해서 Capture할 수 없을까?</h3>
+
+<p>가능!<br /><br />
+방금 설명한 Capture Lists를 사용하면 가능하다.<br /><br />
+Value Type의 경우, <strong>Value Capture 하고 싶은 변수를 리스트로 명시</strong>해주는 것!!<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">num</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"num check #1 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="k">let</span> <span class="nv">closure</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="k">in</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"num check #3 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"num check #2 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="nf">closure</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="cp">#=&gt; prints num check #1 = 0</span>
+<span class="cp">#=&gt; prints num check #2 = 20</span>
+<span class="cp">#=&gt; prints num check #3 = 0</span></code></pre></figure>
+
+<p>closure를 실행하기 전에 외부변수 num의 값을 20으로 변경했지만 클로저의 num에는 영향을 주지 않음! <br /><br />
+근데, 한 가지 더 유의해야 할 점은 Value Type으로 캡쳐한 경우,<br /><br />
+<strong>Closure를 선언할 당시의 num의 값을 Constant Value Type으로 캡쳐함.</strong><br /><br />
+자, 여기서 중요한 것은 Constant Value Type, 즉 “<strong>상수</strong>”로 캡쳐된다는 것.<br /><br /></p>
+
+<p>따라서 다음과 같이</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">closure</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="k">in</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1">// error : Cannot assign to value: 'num' is an immutable capture</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"num check #3 = </span><span class="se">\(</span><span class="n">num</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span></code></pre></figure>
+
+<p>closure 내부에서 <strong>Value Capture된 값을 변경할 수 없음</strong><br /><br /></p>
+
+<p>정리하자면,<br /><br />
+클로저는 기본적으로 Value Type의 값도 Reference Capture를 하지만 Capture Lists를 사용하면 Constant Value Type으로 캡쳐가 가능함!</p>
+
+<h3 id="2-2-reference-type의-값을-복사해서-capture할-수-없을까">2-2. Reference Type의 값을 복사해서 Capture할 수 없을까?</h3>
+
+<p>Value Type의 값을 Capture Lists를 통해 Value Capture가 가능하니까…<br /><br /></p>
+
+<p><strong>Reference Type의 값도 Capture Lists를 통해서 Value Capture가 가능할까?</strong></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Human</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"Curry"</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="nv">human1</span><span class="p">:</span> <span class="kt">Human</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+
+<span class="k">let</span> <span class="nv">closure</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="n">human1</span><span class="p">]</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">human1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">human1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Unknown"</span>
+<span class="nf">closure</span><span class="p">()</span></code></pre></figure>
+
+<p>위와 같은 코드가 있을 때, human1이라는 인스턴스는 Reference Type임. 근데 내가 <strong>Closure Capture Lists를 통해 human1을 캡쳐했으니까, human1은 복사되어 캡쳐 됬을까?</strong><br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">//결과는...</span>
+<span class="cp">#=&gt; prints Unknown</span></code></pre></figure>
+
+<p>아니. <strong>Capture Lists를 사용한다 해도, Reference Type은 Reference Capture를 한다!</strong> <br /><br />
+‘그럼 Reference Type은 Closure Capture Lists를 사용할 필요가 없겠네?’ 싶겠지만, 이건 클로저와 ARC를 보면 언제 쓰는지 이해할 수 있음. <br /><br /></p>
+
+<h2 id="3-클로저와-arc">3. 클로저와 ARC</h2>
+<p>일단 ARC란?<br />
+인스턴스의 Reference Count를 자동으로 계산하여 메모리를 관리하는 방법!?<br /><br /></p>
+
+<p>더 세세하게 얘기하기 위해 클로저와 인스턴스 간의 관계에 대해 이야기 해보자.<br /><br /></p>
+
+<p>Human이란 클래스를 만들고, name을 얻을 수 있는 Lazy 프로퍼티를 클로저를 통해 초기화했음.<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Human</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
+
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">getName</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">name</span>
+    <span class="p">}</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="p">}</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"Human Deinit!"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="nv">curry</span><span class="p">:</span> <span class="kt">Human</span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Lee-Curry"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">curry</span><span class="o">!.</span><span class="nf">getName</span><span class="p">())</span>
+
+<span class="n">curry</span> <span class="o">=</span> <span class="kc">nil</span>
+
+<span class="cp">#=&gt; prints Lee-Curry</span></code></pre></figure>
+
+<p>이후 curry란 인스턴스를 만들고, <strong>클로저로 작성</strong>되어 있는 <code class="language-plaintext highlighter-rouge">getName</code>이란 <strong>지연 저장 프로퍼티를 호출함.</strong><br /><br /></p>
+
+<p>그리고 더이상 curry란 인스턴스가 필요없어서 nil을 할당함.<br /><br /></p>
+
+<p>그러면 인스턴스에 nil이 할당되었고, 나는 이 인스턴스에 다른 변수를 대입한 적 없고, 따라서 <strong>인스턴스의 Reference Count가 0이 되어 deinit</strong>이 호출되어야 할 것인데…<br /><br /></p>
+
+<p><strong>근데 deinit이 불리지 않음!!!!</strong><br /><br /></p>
+
+<p>왜일까??? 이유는 바로 클로저에 있음.</p>
+
+<h3 id="3-1-클로저의-강한-순환-참조">3-1. 클로저의 강한 순환 참조</h3>
+<p>클로저는 Reference Type으로, Heap에 살고 있음!<br /><br />
+따라서, 내가 생성한 human이란 인스턴스는 getName을 호출하는 순간<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">print</span><span class="p">(</span><span class="n">curry</span><span class="o">!.</span><span class="nf">getName</span><span class="p">())</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">getName</code>이란 클로저가 Heap에 할당되며, 이 클로저를 참조할 것임!<br />
+(지연 저장 프로퍼티니까 인스턴스 생성 직후가 아닌, 호출되는 순간 메모리에 올라감)<br /><br />
+근데, <code class="language-plaintext highlighter-rouge">getName</code> 클로저를 보면</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Human</span> <span class="p">{</span>
+	<span class="err">…</span>
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">getName</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">name</span>
+    <span class="p">}</span>
+	<span class="err">…</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">self</code>를 통해 <code class="language-plaintext highlighter-rouge">Human</code> <strong>이란 인스턴스의 프로퍼티</strong>에 접근하고 있음!!<br /><br />
+클로저는 Reference 값을 캡쳐할 때 기본적으로 “<strong>strong</strong>”으로 캡쳐를 함.<br /><br />
+따라서, 이때 <strong>Human이란 인스턴스의 Reference Count가 증가</strong>해버림….!!!<br /><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">Human</code> <strong>인스턴스는 클로저를 참조하고, 클로저는</strong> <code class="language-plaintext highlighter-rouge">Human</code> <strong>인스턴스(의 변수)를 참조</strong>하기 때문에<br /><br /></p>
+
+<p>서로가 서로를 참조하고 있어 둘 다 <strong>메모리에서 해제되지 않는 강한 순환 참조</strong>가 발생해 버린것!<br /><br /></p>
+
+<p>그럼 어떻게 할까? » 강한 순환참조는 weak, unowned를 통해 해결 가능함!</p>
+
+<h3 id="3-2-클로저의-강한-순환-참조-해결법">3-2. 클로저의 강한 순환 참조 해결법</h3>
+<p>클로저에서 해결하려면 앞서 공부한 weak &amp; unowned에 우리가 Reference Type일 땐 필요 없다 느꼈던 Capture Lists를 이용해야함</p>
+
+<blockquote>
+  <p>‘weak, unowned + Capture Lists’</p>
+</blockquote>
+
+<p>클로저가 프로퍼티에 접근할 때 <strong>self를 참조하면서 문제가 발생함</strong>. 따라서 <strong>self에 대한 참조를 Closure Capture Lists</strong>를 통해 <strong>weak, unowned로 캡쳐</strong>해버리는 것이다!</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">// weak 키워드 사용할 때</span>
+<span class="kd">class</span> <span class="kt">Human</span> <span class="p">{</span>
+	<span class="err">…</span>
+
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">getName</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">name</span> <span class="p">??</span> <span class="s">""</span>
+    <span class="p">}</span>
+	<span class="err">…</span>
+<span class="p">}</span>
+
+<span class="c1">// unowned 키워드 사용할 때</span>
+<span class="kd">class</span> <span class="kt">Human</span> <span class="p">{</span>
+    <span class="err">…</span>
+
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">getName</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="k">unowned</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">name</span>
+    <span class="p">}</span>
+    <span class="err">…</span>
+<span class="p">}</span>
+
+<span class="cp">#=&gt; prints Lee-Curry</span>
+<span class="cp">#=&gt; prints Human Deinit!</span></code></pre></figure>
+
+<p>이런 식으로 weak, unowned로 Reference Capture를 하는 것이다.<br /><br />
+이렇게 클로저 리스트를 통해 강한 순환 참조를 해결해 줄 수 있음.<br /><br />
+또한 deinit이 정상 실행되는것을 볼 수 있다!</p>
+
+<h2 id="4-swift에서-클로저는-여러-개니까">4. Swift에서 클로저는 여러 개니까</h2>
+<p><img width="797" alt="%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-09-12%20%EC%98%A4%ED%9B%84%208 03 44" src="https://user-images.githubusercontent.com/83946704/190913759-5a5cc7eb-35b1-45cc-9d3d-60361641c742.png" /></p>
+
+<p>클로저는 <strong>전역 함수, 중첩 함수, 익명 함수</strong> 이 세가지를 모두 아우르는 말<br />
+(일반적으로 익명 함수를 칭하긴 함)<br /><br /></p>
+
+<p>위에서 Unnamed Closure, <strong>익명 함수</strong>일때만 값 캡쳐 방식을 살펴봤으므로 <strong>Named Closure</strong>일 때 값 캡쳐하는 방식을 살펴보자.</p>
+
+<h3 id="4-1-전역함수">4-1. 전역함수</h3>
+
+<p>우리가 일반적으로 func 쓰고 작성하는 함수를 말하는데 (중첩x) 이 함수는 주변의 어떠한 값도 캡쳐하지 않음!</p>
+
+<h3 id="4-2-중첩함수">4-2. 중첩함수</h3>
+
+<p><strong>자신을 포함하고 있는 함수의 값</strong>을 캡쳐함!</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">outer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">num</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="kd">func</span> <span class="nf">inner</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>이런 함수가 있으면 <strong>inner 함수</strong>는 나를 포함하고 있는 <strong>함수 outer의 num이란 값을 사용하니 캡쳐함</strong> (당연히 Reference Capture)</p>
+
+<h2 id="5-중첩-함수--escaping과-메모리의-관계">5. 중첩 함수 &amp; @escaping과 메모리의 관계</h2>
+<p>‘클로저 - 2’에서 배운 @escaping의 의문을 풀어보자<br /><br /></p>
+
+<p>함수 파라미터를 받을 때 @escaping이란 키워드 없이 받은 클로저는 모두 <strong>non-escaping</strong> 클로저이고, 따라서 다음과 같은 특징을 가짐.<br /><br /></p>
+
+<ul>
+  <li>함수 내부에서 직접 실행하기 위해서만 사용한다</li>
+  <li>따라서 파라미터로 받은 클로저는 변수나 상수에 대입할 수 없고, 중첩 함수 내부에서 클로저를 사용할 경우, 중첩 함수를 리턴할 수 없다</li>
+  <li>함수의 실행 흐름을 탈출하지 않아, 함수가 종료되기 전에 무조건 실행 되어야 한다</li>
+</ul>
+
+<p>위와 같은 제약이 왜 생겼을까?<br /><br />
+바로 <strong>클로저가 함수 외부로 탈출하지 못하게 하기 위해서</strong>임.<br /><br /></p>
+
+<p>무슨말일까?<br /><br />
+non-escaping 클로저는 해당 클로저가 <strong>함수가 종료되기 직전에 무조건 실행</strong>이 된다는 조건. 근데 만약 변수나 상수에 대입할 경우, 해당 클로저나 변수가 상수로 <strong>함수에서 리턴</strong>될 수 있고, <strong>중첩 함수 내부에서 클로저를 사용한 경우, 중첩 함수가 클로저를 캡쳐하기 때문에</strong> 중첩 함수를 리턴 시 <strong>클로저가 중첩 함수에 의해 함수 외부에서 실행</strong>될 수 있기 때문!!<br /><br /></p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">outer</span><span class="p">(</span><span class="nv">closure</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">inner</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">closure</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">inner</span> <span class="c1">// error: Escaping local function captures non-escaping parameter 'closure'</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>이런 식으로 closure를 사용하는 inner가 리턴되어 버리면 외부에서 inner를 받고 실행할 때 closure가 호출되어야 하니까 제약을 걸어둔 것!</p>
+
+<h3 id="5-1-왜-non-escaping과-escaping을-나눴을까">5-1. 왜 non-escaping과 escaping을 나눴을까?</h3>
+<p>“편하게 모두 escaping 클로저로 선언하면 되지 않나?” 라고 생각할 수 있음.<br /><br /></p>
+
+<p>non-escaping 클로저에 ‘<strong>함수 직전에 무조건 실행 되어야 한다</strong>’는 조건이 붙는 이유는, 클로저가 이 <strong>함수 내부</strong>에서만 쓰이기 때문에 컴파일러가 메모리 관리를 지저분하게 하지 않아도 되기 때문에 <u>성능향상<u></u>이 이루어지기 때문.<br /><br /></u></p>
+
+<p><strong>non-escaping</strong>의 경우 <strong>함수가 종료됨과 동시에 클로저도 사용이 끝난다</strong>. 하지만 <strong>escaping</strong>의 경우, 함수가 종료되더라도 <strong>실제 클로저가 사용되지 않을 때까지 메모리를 추적</strong>해야 함.</p>
+
+<p><br /><br /><br /><br />
+참고 : 개발자 소들이, Swift) 클로저(Closure) 정복하기(2/3) - 문법 경량화/@escaping/@autoclosure<br />
+(<a href="https://babbab2.tistory.com/82?category=828998">https://babbab2.tistory.com/82?category=828998</a>)<br /></p>
+:ET
