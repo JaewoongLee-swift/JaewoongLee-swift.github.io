@@ -331,7 +331,7 @@ doSomething { print(“closure”) }
 
 예를 들어, 만약 함수가 종료된 후 클로저를 실행하는데, 이때 클로저가 함수 내부 값을 사용함. 그럼 이때 함수는 이미 종료 되었는데, **클로저는 함수 내부 값을 어떻게 사용할까?**<br/><br/>
 
-이런 메모리 관련 부분!! 클로저-3 에서….
+이런 메모리 관련 부분!! [클로저-3] 에서….
 
 ## 5. 마무리
 이번편에서는 트레일링 클로저를 비롯한 클로저 경량화, `@escaping`문법을 배웠다.<br/><br/>
@@ -342,3 +342,5 @@ doSomething { print(“closure”) }
 <br/><br/><br/><br/>
 참고 : 개발자 소들이, Swift) 클로저(Closure) 정복하기(2/3) - 문법 경량화/@escaping/@autoclosure<br/>
 (<https://babbab2.tistory.com/82?category=828998>)<br/>
+
+[클로저-3]: https://jaewoonglee-swift.github.io/swift/Swift-Closure-3/

@@ -180,7 +180,9 @@ closure()
 
 ## 3. 클로저와 ARC
 일단 ARC란?<br/>
-인스턴스의 Reference Count를 자동으로 계산하여 메모리를 관리하는 방법!?<br/><br/>
+인스턴스의 Reference Count를 자동으로 계산하여 메모리를 관리하는 방법!?<br/>
+(참고 : https://jaewoonglee-swift.github.io/swift/Swift-ARC/)<br/><br/>
+
 
 더 세세하게 얘기하기 위해 클로저와 인스턴스 간의 관계에 대해 이야기 해보자.<br/><br/>
 
