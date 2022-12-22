@@ -24,7 +24,7 @@ _'멀티 쓰레드... 관리...?'_<br/><br/>
 
 ### 1-2. 멀티 프로세서에 잘 적응하기 위한 Apple의 방식
 위에 이유 때문에 멀티쓰레드를 잘 관리하는게 중요해졌다. <br/><br/>
-GCD가 만들어지기 이전에는 멀티 쓰레드 관리를 위해 Thread와 OperationQueue 등의 클래스를 사용했는데, Thread는 복잡하고 [Critical Section(임계구역)]을 이용한 Lock 관리가 힘들어졌다. 그리고 OperationQueue는 GCD에 비해 무겁고 [Boiler Plate]들이 많이 필요하다는 문제가 있었다. <br/><br/><br/>
+GCD가 만들어지기 이전에는 멀티 쓰레드 관리를 위해 Thread와 OperationQueue 등의 클래스를 사용했는데, Thread는 복잡하고 [Critical Section(임계구역)]을 이용한 Lock 관리가 힘들어졌다. 그리고 OperationQueue는 GCD에 비해 무겁고 [Boiler Plate]들이 많이 필요하다는 문제가 있었다. <br/><br/><br/>
 
 그래서 내놓은것이 바로 **GCD**!!<br/><br/><br/>
 
@@ -44,6 +44,7 @@ Thread는 쓰레드를 실행하기 위한 클래스이다. <br/><br/>
 1. Thread는 긴 작업을 수행해야 하지만 나머지 애플리케이션의 실행을 차단(block)하고 싶지 않을 때 특히 유용하다. (특히, Thread를 사용하여 사용자 인터페이스와 이벤트 관련 작업을 처리하는 애플리케이션의 메인 스레드를 차단하지 않도록 할 수 있다)
 2. 스레드는 또한 큰 작업을 여러 개의 작은 작업으로 나누는 데 사용될 수 있으며, 이는 멀티코어 컴퓨터에서 성능을 향상시킬 수 있다.
 <br/><br/>
+
 Thread 클래스는 스레드의 런타임 상태를 모니터링하기 위한 작업을 지원한다.<br/><br/>
 Thread의 실행을 취소하거나 Thread가 여전히 실행 중이거나 작업을 완료했는지 확인할 수 있고 Thread를 취소하려면 Thread 코드의 지원이 필요하다. (자세한 내용은 cancel() 설명을 참고)<br/><br/><br/>
 
@@ -55,6 +56,7 @@ OperationQueue는 이름 그대로 대기열(Queue)에 작업실행(Operation)�
 1. Operation : single task에 관한 데이터와 코드를 나타내는 추상 클래스. 해당 클래스를 서브클래싱하여 사용하면 안정적으로 task를 실행시킬 수 있는 효과가 있다.
 2. OperationQueue : 위의 Operation을 우선순위에 맞춰 실행시킴. 한번 operation queue에 Opertaion 객체를 담아놓으면 task가 끝날때까지 queue가 없어지지 않고 존재하며 해당 queue에서 Operation들을 삭제하거나 명령시킬 수 있는 장점이 존재함 (task관리에 이점)
 <br/><br/>
+
 위를 통한 OperationQueue의 핵심은 다음과 같다.
 - Operation을 서브클래싱한 것은 기능을 캡슐화 했다는 의미이므로, 기능에 관한 모듈성 향상
 - task의 실행, 정지, 대기와 같은 실행 상태를 알 수 있고 이를 통해 Operation들을 취소, 순서 지정이 가능
