@@ -91,11 +91,11 @@ QoS의 종류는 아래와 같다.<br/>
 참고 : hanni66, iOS - GCD API 동작 방식과 필요성(2)
 (<https://velog.io/@hanni66/iOS-GCD-API-동작-방식과-필요성2>)<br/>
 참고 : jinShine, [iOS] GCD(Grand Central Dispatch)
-(<https://jinshine.github.io/2018/07/09/iOS/GCD(Grand%20Central%20Dispatch)/#dispatchqueue-1)<br/>
+(<https://jinshine.github.io/2018/07/09/iOS/GCD(Grand%20Central%20Dispatch)/#dispatchqueue-1>)<br/>
 참고 : Apple Documentation, DispatchQueue
 (<https://developer.apple.com/documentation/dispatch/dispatchqueue>)<br/>
 참고 : Zedd0202, iOS ) Prioritize Work with Quality of Service Classes
 (<https://zeddios.tistory.com/521>)<br/>
 
 [GCD - 1]: https://jaewoonglee-swift.github.io/swift/Swift-GCD-1-(+-Thread,-OperationQueue)/
-[데드락]: https://ko.wikipedia.org/wiki/교착_상태
+[데드락(deadlock)]: https://ko.wikipedia.org/wiki/교착_상태
