@@ -5,8 +5,7 @@ categories:
     - Swift
 tags:
     - GCD
-    - Thread
-    - OperationQueue
+    - DispatchQueue
 
 toc: true
 last_modified_at: 2022-12-23-17:47:00 +0900
