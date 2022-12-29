@@ -104,7 +104,7 @@ extension UIColor {
 
 나의 코드와 같이 이미 정의한 `convenience init`을 다시 호출해 또다른 `convenience init`을 만들어 줄 수 있다!<br/><br/>
 대신 `convenience init`을 사용하기 위해선 위에서 말한것과 같이 기존에 정의되어있는 `init`을 반드시 호출해주어야 한다!<br/><br/>
-또한 `convenience init`은 서브클래스에서 다시 재정의해 사용할 수 없다!<br/><br/>
+또한 `convenience init`은 서브클래스에서 다시 재정의해 사용할 수 없다!<br/><br/>
 그 이유와 `convenience init`이 기존의 `init`을 상속하는 과정에 대해서는 다음 포스팅을 통해 더 자세하게 알아보도록 하자...
 
 
