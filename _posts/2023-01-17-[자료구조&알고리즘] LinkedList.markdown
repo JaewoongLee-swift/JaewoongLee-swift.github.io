@@ -144,11 +144,11 @@ mutating func insert(data: T?, at index: Int) {
     for _ in 0..<(index - 1) {
         if node?.next == nil { break }
         node = node?.next
-}
+    }
 
-let nextNode = node?.next
-node?.next = Node(data: data)
-node?.next?.next = nextNode
+    let nextNode = node?.next
+    node?.next = Node(data: data)
+    node?.next?.next = nextNode
 }
 {% endhighlight %}
 
@@ -238,7 +238,7 @@ func firstIndex(of data: T?) -> Int? {
 
 
 ## 3. 마무리
-면접을 경험하고 나니 내가 얼마나 자료구조, 알고리즘과 CS 지식에 소홀히 했는지 뼈저리게 느꼈다._(iOS 지식도 헷갈린게 함정)_<br/><br/>
+면접을 경험하고 나니 내가 얼마나 자료구조, 알고리즘과 CS 지식에 소홀히 했는지 뼈저리게 느꼈다.~~(iOS 지식도 헷갈린게 함정)~~<br/><br/>
 많이 부족하다고 느꼈지만 급하지 말고 차근차근 알아간다 생각하면서 다시 하나씩 쌓아보자!
 <br/><br/><br/><br/>
 참고 : 소들이, Swift) 단방향 연결 리스트(LinkedList) 구현 해보기
