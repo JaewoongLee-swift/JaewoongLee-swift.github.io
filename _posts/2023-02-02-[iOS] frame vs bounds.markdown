@@ -25,12 +25,16 @@ SuperView의 원점을 (0, 0)으로 두고 원점으로 부터 얼마나 떨어�
 
 ### 1-2. frame의 size(width, height)
 frame의 size는 View 영역을 모두 감싸는 사각형으로 나타낸 것<br/><br/>
-<img width="341" alt="스크린샷 2023-02-02 오전 10 46 55" src="https://user-images.githubusercontent.com/83946704/216220158-ce34e360-fa3c-4e7d-9c14-9c3513c04bd2.png">
-<img width="311" alt="스크린샷 2023-02-02 오전 10 47 33" src="https://user-images.githubusercontent.com/83946704/216220193-91a4bc3a-fce6-4523-8658-36f51671e409.png">
+<img width="341" alt="스크린샷 2023-02-02 오전 10 46 55" src="https://user-images.githubusercontent.com/83946704/216220158-ce34e360-fa3c-4e7d-9c14-9c3513c04bd2.png"><br/>
 
-("View 영역을 모두 감싸는 사각형"의 예시)
-<img width="327" alt="스크린샷 2023-02-02 오전 10 48 28" src="https://user-images.githubusercontent.com/83946704/216220292-cc848aa4-eede-4183-90b4-de3b49233c6b.png">
-<img width="502" alt="스크린샷 2023-02-02 오전 10 48 38" src="https://user-images.githubusercontent.com/83946704/216220321-53a1667e-252f-4d01-a5a4-b2d8371b7ae8.png">
+<img width="311" alt="스크린샷 2023-02-02 오전 10 47 33" src="https://user-images.githubusercontent.com/83946704/216220193-91a4bc3a-fce6-4523-8658-36f51671e409.png"><br/>
+
+("View 영역을 모두 감싸는 사각형"의 예시)<br/><br/><br/>
+
+<img width="327" alt="스크린샷 2023-02-02 오전 10 48 28" src="https://user-images.githubusercontent.com/83946704/216220292-cc848aa4-eede-4183-90b4-de3b49233c6b.png"><br/>
+
+<img width="502" alt="스크린샷 2023-02-02 오전 10 48 38" src="https://user-images.githubusercontent.com/83946704/216220321-53a1667e-252f-4d01-a5a4-b2d8371b7ae8.png"><br/><br/>
+
 secondView가 회전하여 secondView를 감싸는 사각형의 크기가 변경됨.
 
 ## 2. Bounds
@@ -43,18 +47,19 @@ bounds가 나타내는 orgin(x, y) 좌표는 자신의 원점을 (0, 0)으로 �
 
 ### 2-2. bounds의 size(weight, height)
 bounds의 size는 View 자체의 영역을 나타낸 것
-<img width="334" alt="스크린샷 2023-02-02 오전 10 56 23" src="https://user-images.githubusercontent.com/83946704/216220565-519b2eb9-ea95-4b43-bf72-566957a53396.png">
+
+<img width="334" alt="스크린샷 2023-02-02 오전 10 56 23" src="https://user-images.githubusercontent.com/83946704/216220565-519b2eb9-ea95-4b43-bf72-566957a53396.png"><br/>
 
 따라서 View를 회전시키더라도 View 자체의 영역은 변하지 않으므로 bounds의 size도 변하지 않는다.
 
 ## 3. Frame과 Bounds의 origin을 변화시켰을 때
 ### 3-1. frame의 origin 변화
-![R1280x0](https://user-images.githubusercontent.com/83946704/216229747-4d818cd1-0bcc-4e98-9b0b-706b89327d13.png)
+![R1280x0](https://user-images.githubusercontent.com/83946704/216229747-4d818cd1-0bcc-4e98-9b0b-706b89327d13.png)<br/>
 (출처 : 개발자 소들이님)<br/><br/>
 frame의 origin 값을 변경하면 origin 값에 맞는 위치로 이동
 
 ### 3-2. bounds의 origin 변화
-![R1280x0](https://user-images.githubusercontent.com/83946704/216229886-ce6466b1-89bb-4a18-b360-45f2847071fd.png)
+![R1280x0](https://user-images.githubusercontent.com/83946704/216229886-ce6466b1-89bb-4a18-b360-45f2847071fd.png)<br/>
 (출처 : 개발자 소들이님)<br/><br/>
 독특하게 thirdView가 움직인다.<br/><br/>
 bounds의 변화는 secondView가 (50, 50) 위치로 이동하라는게 아닌 secondView가 보여주는 화면의 좌표계가 (50, 50)으로 이동하는것.<br/><br/>
